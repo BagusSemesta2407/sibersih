@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ActivityCategory extends Model
 {
@@ -12,4 +13,14 @@ class ActivityCategory extends Model
     protected $guarded =[
         'id'
     ];
+
+    /**
+     * Get all of the activity for the ActivityCategory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activity(): HasMany
+    {
+        return $this->hasMany(Activity::class);
+    }
 }

@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMI | POLITEKNIK NEGERI SUBANG</title>
+    <title>SIBERSIH - Sistem Informasi Kebershan</title>
 
 
     {{-- index.html --}}
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/app-dark.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.svg') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.png') }}" type="image/png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
+    
     <link rel="stylesheet" href="{{ asset('assets/css/shared/iconly.css') }}">
 
     {{-- data-table.html --}}
@@ -29,12 +30,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     {{-- file uploader --}}
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    {{-- <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"> --}}
 
     <link rel="stylesheet" href="{{ asset('assets/extensions/summernote/summernote-lite.min.css') }}">
 
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet">
+    {{-- <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"> --}}
     {{-- choices --}}
     {{-- Toast --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}">
@@ -43,6 +43,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    {{-- <link rel="stylesheet" href="/assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css"> --}}
 
 </head>
 
@@ -54,7 +56,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
                             <a href="">
-                                <img src="/sibersih-logo.png" alt="Logo">
+                                <img src="/logo.png" alt="Logo">
                             </a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -116,18 +118,6 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                {{-- <li class="nav-item dropdown me-3">
-                                    <a class="nav-link active" href="#"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class='bi bi-bell bi-sub fs-4 text-gray-600'></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Notifications</h6>
-                                        </li>
-                                        <li><a class="dropdown-item">No notification available</a></li>
-                                    </ul>
-                                </li> --}}
                             </ul>
                             <div class="dropdown">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -135,7 +125,7 @@
                                         <div class="user-name text-end me-3">
                                             <h6 class="mb-0 text-gray-600">{{ Auth()->user()->name }}</h6>
                                             <p class="mb-0 text-sm text-gray-600">
-                                                </p>
+                                                {{ Auth()->user()->getRoleNames()[0] }}</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -161,6 +151,12 @@
                                         <hr class="dropdown-divider">
                                     </li> --}}
                                     <li>
+
+                                        <a class="dropdown-item" href="{{ route('beranda') }}" >
+                                            <i class="icon-mid bi bi-info-circle-fill me-2"></i>
+                                            Landing Page
+                                        </a>
+
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="icon-mid bi bi-box-arrow-left me-2"></i>
@@ -224,10 +220,10 @@
 
 
     {{-- file uploader --}}
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    {{-- <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script> --}}
 
     {{-- choices --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/choices.js/public/assets/styles/choices.min.css') }}" />
@@ -236,7 +232,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    {{-- <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script> --}}
+
+    {{-- <script src="/assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script> --}}
 
     <script>
         $(document).on('click', '.delete', function() {
@@ -276,7 +274,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         // register desired plugins...
         FilePond.registerPlugin(
             // validates the size of the file...
@@ -313,7 +311,7 @@
                 })
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -359,26 +357,6 @@
             placeholder: $(this).data('placeholder'),
         });
     </script>
-
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        $('.show_confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Apakah Anda Yakin Ingin Menghapus?`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script> --}}
 
     <script>
         $('#form').submit(function(e) {
