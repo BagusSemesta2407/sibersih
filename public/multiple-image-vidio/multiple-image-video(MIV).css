@@ -1,10 +1,10 @@
 .apnd-img {
   float: left;
   margin: 5px;
-  max-height: 70px;
-  max-width: 70px;
-  min-height: 70px;
-  min-width: 70px;
+  max-height: 250px;
+  max-width: 250px;
+  min-height: 250px;
+  min-width: 250px;
   padding: 6px;
   position: relative;
   width: 100%;

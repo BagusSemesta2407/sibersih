@@ -19,7 +19,9 @@ class ActivityController extends Controller
     public function index()
     {
         $title = 'Kegiatan';
-        $activity = Activity::with('village')->get();
+        $activity = Activity::with('village')
+        ->orderByRaw("FIELD(status, 'on progress', 'finish') ASC")
+        ->get();
 
         return view('pages.activity.index', [
             'title' => $title,

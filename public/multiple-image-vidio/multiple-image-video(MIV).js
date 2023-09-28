@@ -22,7 +22,7 @@
             $(document).on('change', '#vidupload' + j, function () {
                 var file = $(this).get(0);
                 var preview = window.URL.createObjectURL(file.files[0]);
-                $('.gallery').append("<div class='apnd-img'><iframe width='50' height='50' src='" + preview + "' id='vid" + j + "' frameborder='0' allowfullscreen></iframe><i class='fa fa-close delfile1'></i></div>");
+                $('.gallery').append("<div class='apnd-img'><iframe width='250' height='250' src='" + preview + "' id='vid" + j + "' frameborder='0' allowfullscreen></iframe><i class='fa fa-close delfile1'></i></div>");
                 j++
             })
         });

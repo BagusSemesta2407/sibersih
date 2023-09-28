@@ -62,7 +62,7 @@ class Activity extends Model
      */
     public function scopeFilter($query, object $filter)
     {
-        $query->when($filter->village_id ?? false, fn ($query, $villageId) => $query->where('village_id', $villageId));
+        $query->when($filter->village_id ?? false, fn($q, $villageId) => $q->where('village_id', $villageId));
         $query->when($filter->startDate ?? false, fn($q, $startDate) => $q->where('date', '>=', $startDate)); 
         $query->when($filter->endDate ?? false, fn($q, $endDate) => $q->where('date', '<=', $endDate)); 
     }

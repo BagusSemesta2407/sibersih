@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\ActivityDetail;
+use App\Models\Employee;
 use App\Models\ImageActivity;
 use App\Models\ImageActivityDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityDetailController extends Controller
 {
@@ -17,7 +19,13 @@ class ActivityDetailController extends Controller
     {
         $title='Kegiatan';
 
-        $activity=Activity::where('status', 'on progress')->get();
+        $auth=Auth::user();
+        $employee=Employee::where('user_id', $auth->id)->first();
+
+        $activity=Activity::where('status', 'on progress')
+        ->where('village_id', $employee->village_id)
+        ->get();
+
         return view('pages.activityDetail.index', [
             'activity' =>$activity,
             'title' => $title

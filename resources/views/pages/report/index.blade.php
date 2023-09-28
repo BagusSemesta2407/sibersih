@@ -9,13 +9,16 @@
                     {{-- <a href="{{ route('operator.activities.create') }}" class="btn btn-outline-primary block float-end">
                         Tambah
                     </a> --}}
-                    <a href="{{ route('operator.pdf-activity',[
-                        'village_id' => request('village_id'),
-                        'startDate'=>   request('startDate'),
-                        'endDate' =>   request('endDate')
-                        ]) }}" class="btn btn-warning float-end">
-                        Export
-                    </a>
+                    <div class="float-end">
+                        <a href="{{ route('operator.index-report') }}" class="btn btn-primary">Refresh</a>
+                        <a href="{{ route('operator.pdf-activity',[
+                            'village_id' => request('village_id'),
+                            'startDate'=>   request('startDate'),
+                            'endDate' =>   request('endDate')
+                            ]) }}" class="btn btn-warning" target="__blank">
+                            Export
+                        </a>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -33,7 +36,7 @@
 
                             <div class="col-md-2 col-sm-12">
                                 <label for="endDate" class="label-control">
-                                    Tanggal endDate
+                                    Tanggal Akhir
                                 </label>
 
                                 <input type="date" class="form-control" name="endDate" id="endDate"
@@ -45,13 +48,13 @@
                                     Kelurahan
                                 </label>
 
-                                <select name="village_id" class="form-control select2">
+                                <select name="village_id" class="form-control select2" id="village_id">
                                     <option value="" selected>
                                         Pilih Kelurahan
                                     </option>
 
                                     @foreach ($village as $item)
-                                        <option value="{{ $item->village_id }}"
+                                        <option value="{{ $item->id }}"
                                             {{ request()->village_id ? (request()->village_id == $item->id ? 'selected' : '') : '' }}>
                                             {{ $item->name }}
                                         </option>
@@ -60,7 +63,7 @@
                             </div>
 
                             <div class="col-md-2 col-sm-12 d-flex mt-auto">
-                                <button type="submit" class="btn btn-success btn-block">FILTER</button>
+                                <button type="submit" class="btn btn-success btn-block">Filter</button>
                             </div>
                         </div>
                     </form>

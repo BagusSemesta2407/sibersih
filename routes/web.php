@@ -28,6 +28,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     // });
 
     Route::get('/', [LandingPageController::class, 'home'])->name('beranda');
+    Route::get('activity-all', [LandingPageController::class, 'indexActivity'])->name('index-activity');
+    Route::get('activity-all/{id}', [LandingPageController::class, 'indexAxticityDetail'])->name('detail-activity');
     Route::get('get-activity/{id?}', [LandingPageController::class, 'getActivity'])->name('get-aktivitas');
     Auth::routes();
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -49,7 +51,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::resource('activity-categories', ActivityCategoryController::class);
                 Route::resource('activities', ActivityController::class);
                 Route::get('report', [ReportController::class, 'index'])->name('index-report');
-                Route::get('pdf', [ReportController::class, 'pdf'])->name('pdf-activity');
+                Route::get('pdf', [ReportController::class, 'exportPdf'])->name('pdf-activity');
             }
         );
 
@@ -68,5 +70,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::post('create-activity-details/{id}', [ActivityDetailController::class, 'postActivityDetail'])->name('post-activity');
             }
         );
+        Route::get('generate', function () {
+            \Illuminate\Support\Facades\Artisan::call('storage:link');
+            echo 'ok';
+        });
+
+        Route::get('optimize', function () {
+            \Illuminate\Support\Facades\Artisan::call('optimize');
+            echo 'ok';
+        });
     });
 });

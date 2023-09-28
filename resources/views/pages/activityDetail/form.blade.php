@@ -35,7 +35,7 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->activityCategory->name }}" disabled>
+                                                value="{{ $activity->activityCategory->name }}" readonly>
                                         </div>
 
                                         <div class="form-group">
@@ -45,7 +45,7 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->name }}" disabled>
+                                                value="{{ $activity->name }}" readonly>
                                         </div>
 
                                         <div class="form-group">
@@ -55,7 +55,7 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->village->name }}" disabled>
+                                                value="{{ $activity->village->name }}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="first-name-vertical">Alamat Lengkap</label>
@@ -64,7 +64,7 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->address_details }}" disabled>
+                                                value="{{ $activity->address_details }}" readonly>
                                         </div>
 
                                         <div class="form-group">
@@ -141,14 +141,16 @@
                                                 </a>
                                             </div>
                                             <div class="col-md-12">
-                                                <div class="gallery"></div>
+                                                <div class="gallery">
+                                                    
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="first-name-vertical">Deskripsi</label>
-                                            <textarea name="description" id="description" class="form-control"></textarea>
-                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Deskripsi</label>
+                                        <textarea name="description" id="description" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>

@@ -47,12 +47,12 @@
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('operator.employee.edit', $item->id) }}"
-                                                class="btn btn-sm btn-outline-warning">
+                                                class="btn btn-sm btn-warning">
                                                 <i class="bi bi-pen"></i>
                                             </a>
                                             &nbsp;
 
-                                            <button class="btn btn-sm btn-outline-danger delete"
+                                            <button class="btn btn-sm btn-danger delete"
                                                 data-url="{{ route('operator.employee.destroy', $item->id) }}">
                                                 <i class="bi bi-trash3"></i>
                                             </button>

@@ -37,8 +37,8 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('pengguna.get-activity', $item->id) }}"
-                                            class="btn btn-sm btn-success">
-                                            <i class="bi bi-eye"></i>
+                                            class="btn btn-sm btn-info">
+                                            <i class="bi bi-cloud-upload-fill"></i>
                                         </a>
                                     </td>
                                 </tr>

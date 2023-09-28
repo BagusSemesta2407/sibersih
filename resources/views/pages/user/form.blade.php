@@ -124,6 +124,15 @@
     <script type="text/javascript">
         $(document).ready(function(e) {
             $('#image').change(function() {
+                let file = this.files[0];
+                let fileType = file.type.toLowerCase();
+                let allowedExtensions = ["image/jpg", "image/jpeg", "image/png"];
+
+                if (allowedExtensions.indexOf(fileType) === -1) {
+                    alert("Hanya file JPG, JPEG, PNG yang diperbolehkan.");
+                    $('#image').val(''); // Mengosongkan input file
+                    return false;
+                }
 
                 let reader = new FileReader();
 
@@ -132,7 +141,7 @@
                     $('#preview-image-before-upload').attr('src', e.target.result);
                 }
 
-                reader.readAsDataURL(this.files[0]);
+                reader.readAsDataURL(file);
 
             });
 

@@ -33,7 +33,7 @@
                                     </td>
 
                                     <td>
-                                        {{ $item->date }}
+                                        {{ \Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}
                                     </td>
                                     <td>
                                         {{ $item->name }}
@@ -54,19 +54,21 @@
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('operator.activities.edit', $item->id) }}"
-                                                class="btn btn-sm btn-warning">
+                                                class="btn btn-sm btn-warning" title="Edit">
                                                 <i class="bi bi-pen"></i>
                                             </a>
                                             &nbsp;
 
-                                            <a href="{{ route('operator.activities.show', $item->id) }}"
-                                                class="btn btn-sm btn-success">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
+                                            @if ($item->status == 'finish')
+                                                <a href="{{ route('operator.activities.show', $item->id) }}"
+                                                    class="btn btn-sm btn-success" title="Detail">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            @endif
                                             &nbsp;
 
                                             <button class="btn btn-sm btn-danger delete"
-                                                data-url="{{ route('operator.activities.destroy', $item->id) }}">
+                                                data-url="{{ route('operator.activities.destroy', $item->id) }}" title="Delete">
                                                 <i class="bi bi-trash3"></i>
                                             </button>
 

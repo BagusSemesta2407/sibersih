@@ -23,6 +23,7 @@ class ReportController extends Controller
             ->where('status', 'finish')
             ->latest()
             ->get();
+
         $village = Village::whereHas('activity')->get();
 
         return view('pages.report.index', [

@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-    
+
     <link rel="stylesheet" href="{{ asset('assets/css/shared/iconly.css') }}">
 
     {{-- data-table.html --}}
@@ -127,9 +127,14 @@
                                             <p class="mb-0 text-sm text-gray-600">
                                                 {{ Auth()->user()->getRoleNames()[0] }}</p>
                                         </div>
+
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="{{ asset('assets/images/faces/1.jpg') }}">
+                                                @if (isset(Auth()->user()->image_url))
+                                                    <img src="{{ Auth()->user()->image_url }}">
+                                                @else
+                                                    <img src="{{ asset('assets/images/faces/1.jpg') }}">
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +157,7 @@
                                     </li> --}}
                                     <li>
 
-                                        <a class="dropdown-item" href="{{ route('beranda') }}" >
+                                        <a class="dropdown-item" href="{{ route('beranda') }}">
                                             <i class="icon-mid bi bi-info-circle-fill me-2"></i>
                                             Landing Page
                                         </a>

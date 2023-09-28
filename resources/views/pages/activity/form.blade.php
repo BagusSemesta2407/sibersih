@@ -99,7 +99,7 @@
 
                                         <div class="form-group">
                                             <label for="first-name-vertical">Tanggal Kegiatan</label>
-                                            <input type="date" id="first-name-vertical"
+                                            <input type="date" id="date-activity"
                                                 class="form-control @error('date')
                                             is-invalid
                                         @enderror"
@@ -202,4 +202,13 @@
         });
     </script>
     
+    <script>
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#date-activity').attr('min', today);
+    </script>
 @endsection
