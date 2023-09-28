@@ -444,6 +444,7 @@
             }
         });
     </script>
+    <script id="dsq-count-scr" src="//sibersih-my-id-2.disqus.com/count.js" async></script>
 
     @yield('script')
 </body>

@@ -2,7 +2,7 @@
 @section('content')
 
     <head>
-        <link type="text/css" rel="stylesheet" href="/image-uploader/dist/image-uploader.min.css">
+        <link type="text/css" rel="stylesheet" href="/multiple-image/dist/image-uploader.min.css">
         <style>
 
         </style>
@@ -179,7 +179,7 @@
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="/image-uploader/dist/image-uploader.min.js"></script>
+    <script type="text/javascript" src="/multiple-image/dist/image-uploader.min.js"></script>
     {{-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> --}}
     <script>
         let images =@json(@$imageActivity);

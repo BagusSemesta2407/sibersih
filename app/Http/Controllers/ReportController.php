@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\ActivityDetail;
 use App\Models\ImageActivity;
+use App\Models\ImageActivityDetail;
 use App\Models\Village;
 use Illuminate\Http\Request;
 use PDF;
@@ -45,12 +47,38 @@ class ReportController extends Controller
             ->latest()
             ->get();
 
+        $imageLaporanArray = [];
+
+        foreach ($laporan as  $value) {
+            $imageLaporan = ImageActivity::with('activity')
+                ->where('activity_id', $value->id)->get();
+            $imageLaporanArray[$value->id] = $imageLaporan;
+        }
+
+        $activityDetailArray = [];
+
+        foreach ($laporan as $activityDetails) {
+            $activityDetail=ActivityDetail::where('activity_id', $activityDetails->id)->first();
+            $activityDetailArray[$activityDetails->id]=$activityDetail;
+        }
+
+        $imageActivityDetailArray=[];
+        foreach ($activityDetailArray as $activityId => $activityDetail) {
+            $imageActivityDetails = ImageActivityDetail::with('activityDetail')
+                ->where('activity_detail_id', $activityDetail->id)
+                ->get();
+            $imageActivityDetailArray[$activityId] = $imageActivityDetails;
+        }
+
         $pdf = PDF::loadView(
             'pages.report.pdf',
             [
                 'laporan' => $laporan,
                 'startDate' => $request->startDate,
                 'endDate' => $request->endDate,
+                'imageLaporanArray' => $imageLaporanArray,
+                'activityDetailArray' => $activityDetailArray,
+                'imageActivityDetailArray' => $imageActivityDetailArray
             ]
         )->setPaper('A4', 'potrait');
 
