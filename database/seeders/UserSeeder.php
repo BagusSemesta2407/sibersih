@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = User::create([
-            'nomor_induk' => '12345678',
+            'nomor_induk' => '3213230504',
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('12345678'),
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $user->assignRole('operator');
 
         $user = User::create([
-            'nomor_induk' => '123456789',
+            'nomor_induk' => '321323050401',
             'name' => 'users',
             'email' => 'users@gmail.com',
             'password' => bcrypt('12345678'),
