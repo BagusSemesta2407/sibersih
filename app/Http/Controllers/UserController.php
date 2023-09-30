@@ -18,7 +18,7 @@ class UserController extends Controller
         $user=User::whereHas('roles', function($q){
             $q->whereIn('name', ['operator']);
         })
-        ->whereNotIn('nomor_induk', ['12345678'])
+        ->whereNotIn('nomor_induk', ['3213230504'])
         ->get();
 
         return view('pages.user.index', [
@@ -89,13 +89,16 @@ class UserController extends Controller
             'nomor_induk'=>$request->nomor_induk,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
         ];
+ 
+        if ($request->password) {
+            $data['password']=Hash::make($request->password);
+        }
         
         $image=User::saveImage($request);
 
         if ($image) {
-            $dataImage['image']=$image;
+            $data['image']=$image;
             User::deleteImage($id);
         }
 

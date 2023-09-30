@@ -97,27 +97,29 @@ class EmployeeController extends Controller
     {
         $data = [
             'village_id'=> $request->village_id,
-            'no_telp' => $request->no_telp,
+            'no_telp' => 62 . $request->no_telp,
         ];
 
         Employee::where('id', $employee->id)->update($data);
 
-        $image=User::saveImage($request);
-
-        if ($image) {
-            $dataImage['image']=$image;
-            User::deleteImage($employee->user_id);
-        }
-
-        // if ($request->password) {
-        //     'password'=>Hash::make($request->password)
-        // }
-        User::whereId($employee->user_id)->update([
+        $dataUser = [
             'nomor_induk'=>$request->nomor_induk,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
+        ];
+
+        if ($request->password) {
+            $dataUser['password']=Hash::make($request->password);
+        }
+
+        $image=User::saveImage($request);
+
+        if ($image) {
+            $dataUser['image']=$image;
+            User::deleteImage($employee->user_id);
+        }
+        
+        User::whereId($employee->user_id)->update($dataUser);
 
         return redirect()->route('operator.employee.index')->with('success', 'Data Berhasil Diubah');
     }

@@ -125,7 +125,12 @@
 
                                         <div class="form-group">
                                             <label for="first-name-vertical">Lokasi Lengkap Kegiatan</label>
-                                            <textarea name="address_details" class="form-control">{{ @$activity->address_details }}</textarea>
+                                            <textarea name="address_details" class="form-control @error('address_details')
+                                                is-invalid
+                                            @enderror">{{ @$activity->address_details }}</textarea>
+                                            @if ($errors->has('address_details'))
+                                                <span class="text-danger">{{ $errors->first('address_details') }}</span>
+                                            @endif
                                         </div>
 
                                         {{-- <div class='wrapper'>

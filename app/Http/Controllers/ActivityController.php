@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActivityRequest;
 use App\Models\Activity;
 use App\Models\ActivityCategory;
 use App\Models\ActivityDetail;
@@ -48,7 +49,7 @@ class ActivityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ActivityRequest $request)
     {
         // dd($request->all());
         $auth = Auth::user()->getRoleNames()->first();
