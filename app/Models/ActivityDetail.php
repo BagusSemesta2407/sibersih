@@ -35,5 +35,14 @@ class ActivityDetail extends Model
         return $this->hasMany(ImageActivityDetail::class);
     }
 
-    
+    /**
+     * Scope Filter
+     *
+     * @return scope
+     */
+    public function scopeFilter($query, object $filter)
+    {
+        // $query->when($filter->activity->village_id ?? false, fn($q, $villageId) => $q->where('village_id', $villageId));
+        $query->when($filter->village_id, fn($q, $villageId) => $q->whereHas('activity', fn($subQuery) => $subQuery->where('village_id', $villageId)));
+    }
 }

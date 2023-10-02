@@ -19,6 +19,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nomor Induk</th>
+                                <th>Username</th>
                                 <th>Nama</th>
                                 <th>Kelurahan</th>
                                 <th>Action</th>
@@ -34,6 +35,10 @@
 
                                     <td>
                                         {{ $item->user->nomor_induk }}
+                                    </td>
+
+                                    <td>
+                                        {{ $item->user->username }}
                                     </td>
                                     
                                     <td>

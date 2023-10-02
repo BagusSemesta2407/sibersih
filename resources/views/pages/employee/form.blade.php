@@ -65,6 +65,18 @@
                                                 <span class="text-danger">{{ $errors->first('nomor_induk') }}</span>
                                             @endif
                                         </div>
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Username</label>
+                                            <input type="text" id="username"
+                                                class="form-control @error('username')
+                                            is-invalid
+                                        @enderror"
+                                                name="username" placeholder="Masukkan Nomor Induk"
+                                                value="{{ old('username', @$employee->user->username) }}">
+                                            @if ($errors->has('username'))
+                                                <span class="text-danger">{{ $errors->first('username') }}</span>
+                                            @endif
+                                        </div>
 
                                         <div class="form-group">
                                             <label for="">Nama</label>

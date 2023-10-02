@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->string('name')->nullable();
             $table->text('address_details')->nullable();
+            $table->text('describe_point_location')->nullable();
             $table->enum('status', ['waiting', 'on progress', 'finish'])->nullable();
             $table->timestamps();
         });

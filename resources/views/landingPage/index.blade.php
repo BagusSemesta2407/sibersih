@@ -3,6 +3,8 @@
 @section('content-lp')
 
     <head>
+        <link rel="stylesheet" href="{{ asset('assets/extensions/simple-datatables/style.css') }}">
+
         <style>
             /* Gaya CSS untuk latar belakang hijau */
             .green-background {
@@ -69,17 +71,23 @@
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">Tentang</a></li>
+                            <li class="scroll-to-section"><a href="#services">Jadwal & Informasi</a></li>
                             <li class="scroll-to-section"><a href="#portfolio">Dokumentasi</a></li>
-                            <li class="scroll-to-section"><a href="#blog">Detail Kegiatan</a></li>
+                            <li class="scroll-to-section"><a href="#blog">Kegiatan Terbaru</a></li>
                             <li class="scroll-to-section">
                                 @if (Route::has('login'))
-                                    {{-- <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block"> --}}
                                     @auth
-                                        <div class="border-first-button"><a href="{{ route('home') }}">Laman Admin</a></div>
+                                        <a href="/home">
+                                            Dashboard
+                                        </a>
                                     @else
-                                        <div class="border-first-button"><a href="{{ route('login') }}">Login</a></div>
+                                        <a href="/login">
+                                            Login
+                                        </a>
                                     @endauth
                                 @endif
+                            </li>
+                            <li class="scroll-to-section">
                             </li>
                         </ul>
                         <a class='menu-trigger'>
@@ -106,7 +114,7 @@
                                         <h6>Platform Informasi Kegiatan Kebersihan</h6>
                                         <h2>SIBERSIH</h2>
                                         <small>SISTEM INFORMARSI KEBERSIHAN KECAMATAN SUBANG</small>
-                                        <p>Bersama Menuju Kecamatan Subang yang Bersih, dan Asri</p>
+                                        <p>Bersama Menuju Kecamatan Subang yang Bersih, dan Indah</p>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-first-button scroll-to-section">
@@ -118,7 +126,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
-                                <img src="/logo-subang.png" alt="">
+                                <img src="/kecamatan-subang.jpg" alt="">
                             </div>
                         </div>
                     </div>
@@ -145,10 +153,86 @@
                                     <h4>SIBERSIH</h4>
                                     <div class="line-dec"></div>
                                 </div>
-                                <p>SIBERSIH adalah singkatan dari Sistem Informasi Kebersihan Kecamatan Subang, sebuah
+                                <p>SIBERSIH adalah akronim dari Sistem Informasi Kebersihan Kecamatan Subang, sebuah
                                     platform yang menyajikan informasi mengenai aktivitas pemeliharaan kebersihan di
                                     Kecamatan Subang, bertujuan untuk mewujudkan lingkungan Kecamatan Subang yang bersih dan
                                     indah.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="services" class="services section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h6>Jadwal dan Informasi</h6>
+                        <h4>Jadwal Kegiatan <em>SIBERSIH</em></h4>
+                        <div class="line-dec"></div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="naccs">
+                        <div class="grid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ul class="nacc">
+                                        <li class="active">
+                                            <div>
+                                                <div class="thumb">
+                                                    <div class="row">
+                                                        <div class="col-md-12 align-self-center">
+                                                            <div class="left-text">
+                                                                <h4>Jadwal Kegiatan SIBERSIH</h4>
+                                                                <table class="table" id="table1">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>No</th>
+                                                                            <th>Tanggal Kegiatan</th>
+                                                                            <th>Lokasi Kegiatan</th>
+                                                                            <th>Titik Lokasi Yang Perlu Dibersihkan</th>
+                                                                            <th>Aksi</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @forelse ($scheduleActivity as $item)
+                                                                            <tr>
+                                                                                <td>{{ $loop->iteration }}</td>
+                                                                                <td>
+                                                                                    {{ \Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $item->village->name }},
+                                                                                    {{ $item->address_details }}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $item->describe_point_location }}
+                                                                                </td>
+                                                                                <td>
+                                                                                    <a
+                                                                                        href="{{ route('schedule-information-detail', $item->id) }}">Detail</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @empty
+                                                                            <tr>
+                                                                                <td colspan="5" class="text-center">
+                                                                                    Belum Ada Jadwal Kegiatan</td>
+                                                                            </tr>
+                                                                        @endforelse
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -212,7 +296,7 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
                     <div class="blog-post">
                         <div class="down-content">
-                            <h5>Daftar Kelurahan Dengan Kegiatan Terbanyak</h5>
+                            <h5>Informasi Kelurahan Teladan</h5>
                             <br>
                             <table class="table bordered">
                                 <thead>
@@ -286,7 +370,8 @@
                                         <div class="thumb">
                                             <a href="#">
                                                 <img src="/sibersih-logo.png" alt="" width="280"
-                                                    height="280"></a>
+                                                    height="280">
+                                            </a>
                                         </div>
                                         <div class="right-content">
                                             <p>Belum Ada Kegiatan Kebersihan</p>
@@ -305,4 +390,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
+    <script>
+        if ($('#table1').length) {
+            // Simple Datatable
+            let table1 = document.querySelector('#table1');
+            let dataTable = new simpleDatatables.DataTable(table1);
+        }
+    </script>
 @endsection

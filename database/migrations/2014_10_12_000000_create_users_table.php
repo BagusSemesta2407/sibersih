@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('nomor_induk');
             $table->string('name');
+            $table->string('username');
             $table->string('image')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

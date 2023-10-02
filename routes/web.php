@@ -5,6 +5,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ActivityDetailController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('activity-all', [LandingPageController::class, 'indexActivity'])->name('index-activity');
     Route::get('activity-all/{id}', [LandingPageController::class, 'indexAxticityDetail'])->name('detail-activity');
     Route::get('get-activity/{id?}', [LandingPageController::class, 'getActivity'])->name('get-aktivitas');
+    Route::get('schedule-information-activity/{id}', [LandingPageController::class, 'scheduleActivityDetail'])->name('schedule-information-detail');
     Auth::routes();
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -52,6 +54,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::resource('activities', ActivityController::class);
                 Route::get('report', [ReportController::class, 'index'])->name('index-report');
                 Route::get('pdf', [ReportController::class, 'exportPdf'])->name('pdf-activity');
+                Route::get('profile', [ProfilController::class, 'index'])->name('profile');
+                Route::post('profile/{update}', [ProfilController::class, 'update'])->name('update-profile');
             }
         );
 
@@ -68,6 +72,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::get('list-activity', [ActivityDetailController::class, 'index'])->name('index-list-activity');
                 Route::get('create-activity-details/{id}', [ActivityDetailController::class, 'getActivity'])->name('get-activity');
                 Route::post('create-activity-details/{id}', [ActivityDetailController::class, 'postActivityDetail'])->name('post-activity');
+                Route::get('profile', [ProfilController::class, 'index'])->name('profile');
+                Route::post('profile/{update}', [ProfilController::class, 'update'])->name('update-profile');
             }
         );
         Route::get('generate', function () {

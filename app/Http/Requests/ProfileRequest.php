@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,11 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'nomor_induk' => 'required|unique:users,nomor_induk|integer',
             'name' => 'required',
+            'username' => 'required|unique:users,username,'.auth()->user()->id,
             'email' => 'required|email',
-            'password' => 'required|min:8',
-            'username' => 'required|unique:users,username',
+            'nomor_induk' => 'required',
         ];
-
-        if ($this->_method != 'put') {
-            $rules['image'] =   'required';
-        }
 
         return $rules;
     }
@@ -39,17 +34,12 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'nomor_induk.required' => 'Nomor Induk Wajib Diisi',
-            'nomor_induk.unique' => 'Nomor Induk Sudah Terdaftar',
-            'nomor_induk.integer' => 'Nomor Induk Tidak Valid',
-            'username.required' => 'Username Wajib Diisi',
-            'username.unique' => 'Username Sudah Terdaftar',
             'name.required' => 'Nama Wajib Diisi',
+            'username.required' => 'Username Wajib Diisi',
+            'username.unique' => 'Username Tidak Valid',
             'email.required' => 'Email Wajib Diisi',
             'email.email' => 'Email Tidak Valid',
-            'password.required' => 'Pasword Wajib Diisi',
-            'password.min' => 'Password Wajib Diisi Dalam 8 Karakter',
-            'image.required' => 'Foto Wajib Diisi'
+            'nomor_induk.required' => 'Nomor Induk Wajib Diisi'
         ];
     }
 }

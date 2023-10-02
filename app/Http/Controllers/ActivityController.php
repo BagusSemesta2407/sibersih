@@ -66,6 +66,7 @@ class ActivityController extends Controller
             'village_id' => $request->village_id,
             'address_details' => $request->address_details,
             'name' => $request->name,
+            'describe_point_location' => $request->describe_point_location,
             'status' => $status
         ]);
 
@@ -135,6 +136,7 @@ class ActivityController extends Controller
             'date' => $request->date,
             'village_id' => $request->village_id,
             'address_details' => $request->address_details,
+            'describe_point_location' => $request->describe_point_location,
             'name' => $request->name,
         ];
 

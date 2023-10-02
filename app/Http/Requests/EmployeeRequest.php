@@ -23,6 +23,7 @@ class EmployeeRequest extends FormRequest
     {
         $rules = [
             'nomor_induk' => 'required|unique:users,nomor_induk|integer',
+            'username' => 'required|unique:users,username',
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
@@ -44,6 +45,8 @@ class EmployeeRequest extends FormRequest
             'nomor_induk.unique' => 'Nomor Induk Sudah Terdaftar',
             'nomor_induk.integer' => 'Nomor Induk Tidak Valid',
             'name.required' => 'Nama Wajib Diisi',
+            'username.required' => 'Username Wajib Diisi',
+            'username.unique' => 'Username Sudah Terdaftar',
             'email.required' => 'Email Wajib Diisi',
             'email.email' => 'Email Tidak Valid',
             'email.unique' => 'Email Sudah Terdaftar',

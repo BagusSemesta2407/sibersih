@@ -27,6 +27,7 @@ class ActivityRequest extends FormRequest
             'date' => 'required',
             'name' => 'required',
             'address_details' => 'required',
+            'describe_point_location' => 'required'
         ];
 
         return $rules;
@@ -40,6 +41,7 @@ class ActivityRequest extends FormRequest
             'name.required' => 'Nama Kegiatan Wajib Diisi',
             'date.required' => 'Waktu Kegiatan Wajib Diisi',
             'address_details.required' => 'Alamat Lengkap Wajib Diisi',
+            'describe_point_location.required' => 'Deskripri Titik Lokasi Yang Perlu Dibersihkan Wajib Diisi'
         ];
     }
 }

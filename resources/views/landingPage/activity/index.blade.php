@@ -50,6 +50,33 @@
                     </div>
                 </div>
                 <div class="col-lg-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                    <form action="#" class="form-horizontal"
+                        style="padding-bottom: 10px;border-bottom: 1px solid #d7d6d6; margin-bottom: 20px;">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 col-sm-12">
+                                <label for="village_id" class="label-control">
+                                    Kelurahan
+                                </label>
+
+                                <select name="village_id" class="form-control select2" id="village_id">
+                                    <option value="" selected>
+                                        Pilih Kelurahan
+                                    </option>
+
+                                    @foreach ($village as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ request()->village_id ? (request()->village_id == $item->id ? 'selected' : '') : '' }}>
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 col-sm-12 d-flex mt-auto">
+                                <button type="submit" class="btn btn-success btn-block">Filter</button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="blog-posts">
                         <div class="row">
                             @forelse ($activityDetail as $value)

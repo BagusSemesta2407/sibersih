@@ -54,6 +54,7 @@ https://templatemo.com/tm-568-digimedia
     <script src="/assets-lp/assets/js/animation.js"></script>
     <script src="/assets-lp/assets/js/imagesloaded.js"></script>
     <script src="/assets-lp/assets/js/custom.js"></script>
+    @yield('script')
 </body>
 
 </html>

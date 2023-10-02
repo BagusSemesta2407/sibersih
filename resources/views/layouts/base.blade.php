@@ -157,6 +157,18 @@
                                     </li> --}}
                                     <li>
 
+                                        @if (Auth::user()->getRoleNames()[0] == 'operator')
+                                            <a class="dropdown-item" href="{{ route('operator.profile') }}">
+                                                <i class="icon-mid bi bi-person-lines-fill me-2"></i>
+                                                Profil
+                                            </a>
+                                        @else
+                                            <a class="dropdown-item" href="{{ route('pengguna.profile') }}">
+                                                <i class="icon-mid bi bi-person-lines-fill me-2"></i>
+                                                Profil
+                                            </a>
+                                        @endif
+
                                         <a class="dropdown-item" href="{{ route('beranda') }}">
                                             <i class="icon-mid bi bi-info-circle-fill me-2"></i>
                                             Landing Page

@@ -44,7 +44,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="name" class="col-sm-3 col-form-label">
-                                                Kategori Kegiatan <sup class="text-danger">*</sup>
+                                                Kategori Kegiatan
                                             </label>
 
                                             <div class="col-sm-12">
@@ -72,7 +72,7 @@
 
                                         <div class="form-group">
                                             <label for="name" class="col-sm-3 col-form-label">
-                                                Kelurahan <sup class="text-danger">*</sup>
+                                                Kelurahan 
                                             </label>
 
                                             <div class="col-sm-12">
@@ -130,6 +130,16 @@
                                             @enderror">{{ @$activity->address_details }}</textarea>
                                             @if ($errors->has('address_details'))
                                                 <span class="text-danger">{{ $errors->first('address_details') }}</span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Titik Lokasi Yang Perlu Dibersihkan</label>
+                                            <textarea name="describe_point_location" class="form-control @error('describe_point_location')
+                                                is-invalid
+                                            @enderror">{{ @$activity->describe_point_location }}</textarea>
+                                            @if ($errors->has('describe_point_location'))
+                                                <span class="text-danger">{{ $errors->first('describe_point_location') }}</span>
                                             @endif
                                         </div>
 

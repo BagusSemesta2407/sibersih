@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -15,10 +16,13 @@ class UserController extends Controller
     public function index()
     {
         $title = 'Operator';
+
+        $auth=Auth::user();
         $user=User::whereHas('roles', function($q){
             $q->whereIn('name', ['operator']);
         })
         ->whereNotIn('nomor_induk', ['3213230504'])
+        ->where('id', '!=', $auth->id)
         ->get();
 
         return view('pages.user.index', [
@@ -49,6 +53,7 @@ class UserController extends Controller
             'nomor_induk'=>$request->nomor_induk,
             'name' => $request->name,
             'email' => $request->email,
+            'username' => $request->username,
             'image' => $image,
             'password' => bcrypt($request->password)
         ]);
@@ -89,6 +94,7 @@ class UserController extends Controller
             'nomor_induk'=>$request->nomor_induk,
             'name' => $request->name,
             'email' => $request->email,
+            'username' => $request->username,
         ];
  
         if ($request->password) {

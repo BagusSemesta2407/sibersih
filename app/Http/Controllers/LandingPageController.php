@@ -35,6 +35,7 @@ class LandingPageController extends Controller
 
         $activity = Activity::with(['imageActivity', 'activityDetail'])
             ->where('status', 'finish')->get();
+        $scheduleActivity=Activity::where('status', 'on progress')->get();
 
         $imageAcitvityDetail = ImageActivityDetail::all();
 
@@ -45,7 +46,19 @@ class LandingPageController extends Controller
             'activity' => $activity,
             'imageAcitvityDetail' => $imageAcitvityDetail,
             'activityDetail' => $activityDetail,
-            'rankCountVillages' => $rankCountVillages
+            'rankCountVillages' => $rankCountVillages,
+            'scheduleActivity' => $scheduleActivity
+        ]);
+    }
+
+    public function scheduleActivityDetail($id)
+    {
+        $scheduleActivity=Activity::find($id);
+        $imageScheduleActivity=ImageActivity::where('activity_id', $scheduleActivity->id)->get();
+
+        return view('landingPage.scheduleActivityDetail', [
+            'scheduleActivity' => $scheduleActivity,
+            'imageScheduleActivity' => $imageScheduleActivity
         ]);
     }
 
@@ -67,13 +80,21 @@ class LandingPageController extends Controller
         return $activity;
     }
 
-    public function indexActivity()
+    public function indexActivity(Request $request)
     {
+        $filter = (object) [
+            'village_id' => $request->village_id
+        ];
+
         $activityDetail = ActivityDetail::with('activity', 'imageActivityDetail')
+            ->filter($filter)
             ->latest()->paginate(5);
+        
+        $village=Village::whereHas('activity.activityDetail')->get();
 
         return view('landingPage.activity.index', [
             'activityDetail' => $activityDetail,
+            'village' => $village,
         ]);
     }
 

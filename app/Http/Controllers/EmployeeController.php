@@ -49,6 +49,7 @@ class EmployeeController extends Controller
             'nomor_induk'=>$request->nomor_induk,
             'name' => $request->name,
             'email' => $request->email,
+            'username' => $request->username,
             'image' => $image,
             'password' => bcrypt($request->password)
         ]);
@@ -106,6 +107,7 @@ class EmployeeController extends Controller
             'nomor_induk'=>$request->nomor_induk,
             'name' => $request->name,
             'email' => $request->email,
+            'username' => $request->username,
         ];
 
         if ($request->password) {
