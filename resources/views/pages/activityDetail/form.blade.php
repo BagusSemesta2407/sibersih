@@ -10,6 +10,9 @@
         </script>
 
         <link rel="stylesheet" href="/multiple-image-vidio/multiple-image-video(MIV).css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/darkly/bootstrap.min.css"> --}}
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
         {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/darkly/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
     </head>
@@ -118,13 +121,12 @@
                                     @method('PUT')
                                 @else
                                     <form class="form form-vertical" enctype="multipart/form-data" method="POST"
-                                        action="{{ route('pengguna.post-activity', $activity) }}" id="form">
+                                        action="{{ route('pengguna.post-upload-activity', $activity) }}" id="form">
                             @endif
                             {{ csrf_field() }}
                             <h5>Form Upload Bukti Kegiatan</h5>
                             <div class="form-body">
                                 <div class="row">
-                                    {{-- {{ $errors }} --}}
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="first-name-vertical">Kategori Kegiatan</label>

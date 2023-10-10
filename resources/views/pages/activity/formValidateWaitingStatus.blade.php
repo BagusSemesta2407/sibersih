@@ -40,24 +40,63 @@
                                 value="{{ $activity->address_details }}">
                         </div>
 
-                    </div>
-                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="readonlyInput">Titik Yang Akan Dibersihkan</label>
+                            <textarea name="" id="" class="form-control">{{ $activity->describe_point_location }}</textarea>
+                        </div>
                         <div class="form-group">
                             <label for="readonlyInput">Waktu Kegiatan</label>
                             <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
                                 value="{{ \Carbon\Carbon::parse($activity->date)->translatedFormat('d F Y') }}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="disabledInput">Status</label>
-                            <div>
-                                @if ($activity->status == 'on progress')
-                                    <span class="badge bg-warning">On Progress</span>
-                                @else
-                                    <span class="badge bg-success">Selesai</span>
-                                @endif
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Form Konfirmasi Kegiatan</h5>
+                        <form action="{{ route('operator.post-validate-waiting-status', $activity) }}"
+                            enctype="multipart/form-data" class="form form-vertical" method="POST" id="form">
+                            {{-- @method('PUT') --}}
+                            @csrf
+                            <div class="form-group">
+                                <label for="disabledInput">Konfirmasi Kegiatan</label>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <select name="status" id="element-option-confirm"
+                                            class="form-control select2 @error('status') is-invalid @enderror">
+                                            <option value="" selected="" disabled="">
+                                                Konfirmasi Kegiatan
+                                            </option>
+                                            <option value="on progress" id="disetujui"
+                                                {{ $activity->status == 'on progress' ? 'selected' : '' }}>
+                                                Disetujui
+                                            </option>
+                                            <option value="disagree" id="ditolak"
+                                                {{ $activity->status == 'disagree' ? 'selected' : '' }}>
+                                                Belum Disetujui
+                                            </option>
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('status'))
+                                        <span class="text-danger">{{ $errors->first('status') }}</span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="form-group" id="reason_diagree_element">
+                                <label for="disabledInput">Alasan Ditolak</label>
+                                <textarea class="form-control" name="disgree_reason">{{ $activity->diagree_reason }}</textarea>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-outline-primary me-1 mb-1" id="btnSubmit">
+                                    {{-- {{ $aksi }} --}}
+                                    Submit
+                                    <span class="spinner-border ml-2 d-none" id="loader"
+                                        style="width: 1rem; height: 1rem;" role="status">
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="card">
@@ -81,53 +120,9 @@
                             @endforelse
                         </div>
                     </div>
-
-                    <div class="card">
-                        <label for="first-name-vertical">Bukti Kegiatan</label>
-                        <small class="text-muted">Foto</small>
-                        <div class="row row-cols-1 row-cols-md-6 g-1" data-masonry='{"percentPosition": true }'>
-                            @forelse ($imageActivityDetail as $file)
-                                @if (str_contains($file, '.jpg') || str_contains($file, '.jpeg') || str_contains($file, '.png'))
-                                    <div class="col">
-                                        <div class="card">
-                                            <a href="{{ $file->file_url }}" data-fancybox="gallery"
-                                                data-caption="{{ $file->caption }}">
-                                                <img src="{{ $file->file_url }}" class="card-img-top"
-                                                    alt="{{ $file->caption }}">
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endif
-                            @empty
-                                <div class="col text-center">
-                                    {{-- <img src="{{ asset('empty.jpg') }}" alt="" width="280" height="280"> --}}
-                                    <p>Tidak ada dokumentasi lokasi</p>
-                                </div>
-                            @endforelse
-                        </div>
-                        <small class="text-muted">Video</small>
-                        <div class="row row-cols-1 row-cols-md-6 g-1">
-                            @foreach ($imageActivityDetail as $files)
-                                @if (str_contains($files, '.mp4') || str_contains($files, '.avi'))
-                                    <video controls>
-                                        <source src="{{ $files->file_url }}" type="video/mp4">
-                                    </video>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="disabledInput">Deskripsi</label>
-                            <textarea class="form-control" readonly>{{ $activityDetail->description }}</textarea>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection
@@ -136,5 +131,21 @@
         $(document).ready(function() {
             $('[data-fancybox="gallery"]').fancybox();
         });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#reason_diagree_element').hide();
+            $('#element-option-confirm').on('change', function() {
+                let selectedVal = $(this).val();
+
+                console.log(selectedVal);
+                if (selectedVal == 'disagree') {
+                    $('#reason_diagree_element').show();
+                } else {
+                    $('#reason_diagree_element').hide();
+                }
+            })
+        })
     </script>
 @endsection

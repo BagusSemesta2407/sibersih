@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('subang_activities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('activity_category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('village_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('date')->nullable();
             $table->string('name')->nullable();
+            $table->date('date')->nullable();
             $table->text('address_details')->nullable();
-            $table->text('describe_point_location')->nullable();
-            $table->enum('status', ['waiting', 'disagree', 'on progress', 'finish'])->nullable();
-            $table->text('disgree_reason')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('subang_activities');
     }
 };

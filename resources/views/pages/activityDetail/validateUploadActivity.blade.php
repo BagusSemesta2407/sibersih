@@ -20,24 +20,24 @@
                         <div class="form-group">
                             <label for="readonlyInput">Kategori Kegiatan</label>
                             <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
-                                value="{{ $activity->activityCategory->name }}">
+                                value="{{ $activityDetail->activity->activityCategory->name }}">
                         </div>
                         <div class="form-group">
                             <label for="readonlyInput">Nama Kegiatan</label>
                             <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
-                                value="{{ $activity->name }}">
+                                value="{{ $activityDetail->activity->name }}">
                         </div>
 
                         <div class="form-group">
                             <label for="readonlyInput">Kelurahan</label>
                             <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
-                                value="{{ $activity->village->name }}">
+                                value="{{ $activityDetail->activity->village->name }}">
                         </div>
 
                         <div class="form-group">
                             <label for="readonlyInput">Alamat Lengkap</label>
                             <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
-                                value="{{ $activity->address_details }}">
+                                value="{{ $activityDetail->activity->address_details }}">
                         </div>
 
                     </div>
@@ -45,13 +45,13 @@
                         <div class="form-group">
                             <label for="readonlyInput">Waktu Kegiatan</label>
                             <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
-                                value="{{ \Carbon\Carbon::parse($activity->date)->translatedFormat('d F Y') }}">
+                                value="{{ \Carbon\Carbon::parse($activityDetail->activity->date)->translatedFormat('d F Y') }}">
                         </div>
 
                         <div class="form-group">
                             <label for="disabledInput">Status</label>
                             <div>
-                                @if ($activity->status == 'on progress')
+                                @if ($activityDetail->activity->status == 'on progress')
                                     <span class="badge bg-warning">On Progress</span>
                                 @else
                                     <span class="badge bg-success">Selesai</span>
@@ -63,7 +63,7 @@
                     <div class="card">
                         <label for="first-name-vertical">Dokumentasi Lokasi</label>
                         <div class="row row-cols-1 row-cols-md-6 g-1" data-masonry='{"percentPosition": true }'>
-                            @forelse ($imageActivity as $item)
+                            @forelse ($activityDetail->activity['imageActivity'] as $item)
                                 <div class="col">
                                     <div class="card">
                                         <a href="{{ $item->image_url }}" data-fancybox="gallery"
@@ -86,7 +86,7 @@
                         <label for="first-name-vertical">Bukti Kegiatan</label>
                         <small class="text-muted">Foto</small>
                         <div class="row row-cols-1 row-cols-md-6 g-1" data-masonry='{"percentPosition": true }'>
-                            @forelse ($imageActivityDetail as $file)
+                            @forelse ($activityDetail->imageActivityDetail as $file)
                                 @if (str_contains($file, '.jpg') || str_contains($file, '.jpeg') || str_contains($file, '.png'))
                                     <div class="col">
                                         <div class="card">
@@ -107,7 +107,7 @@
                         </div>
                         <small class="text-muted">Video</small>
                         <div class="row row-cols-1 row-cols-md-6 g-1">
-                            @foreach ($imageActivityDetail as $files)
+                            @foreach ($activityDetail->imageActivityDetail as $files)
                                 @if (str_contains($files, '.mp4') || str_contains($files, '.avi'))
                                     <video controls>
                                         <source src="{{ $files->file_url }}" type="video/mp4">
@@ -125,7 +125,56 @@
                             <textarea class="form-control" readonly>{{ $activityDetail->description }}</textarea>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-12">
+                    <h5>Form Konfirmasi Kegiatan</h5>
+                    <form action="{{ route('operator.post-upload-validate-activity', $activityDetail) }}"
+                        enctype="multipart/form-data" class="form form-vertical" method="POST" id="form">
+                        @csrf
+                        <div class="form-group">
+                            <label for="disabledInput">Konfirmasi Bukti Kegiatan</label>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <select name="status" id="element-option-confirm"
+                                        class="form-control select2 @error('status') is-invalid @enderror">
+                                        <option value="" selected="" disabled="">
+                                            Konfirmasi Kegiatan
+                                        </option>
+                                        <option value="on progress" id="disetujui"
+                                            {{ $activityDetail->status == 'finish' ? 'selected' : '' }}>
+                                            Disetujui
+                                        </option>
+                                        <option value="disagree" id="ditolak"
+                                            {{ $activityDetail->status == 'disagree' ? 'selected' : '' }}>
+                                            Belum Disetujui
+                                        </option>
+                                    </select>
+                                </div>
+                                @if ($errors->has('status'))
+                                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                                @endif
+                            </div>
+                        </div>
 
+                        <div class="form-group" id="reason_diagree_element">
+                            <label for="disabledInput">Alasan Ditolak</label>
+                            <textarea class="form-control" name="reason_disagree">{{ $activityDetail->diagree_reason }}</textarea>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-outline-primary me-1 mb-1" id="btnSubmit">
+                                {{-- {{ $aksi }} --}}
+                                Submit
+                                <span class="spinner-border ml-2 d-none" id="loader"
+                                    style="width: 1rem; height: 1rem;" role="status">
+                                </span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -136,5 +185,21 @@
         $(document).ready(function() {
             $('[data-fancybox="gallery"]').fancybox();
         });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#reason_diagree_element').hide();
+            $('#element-option-confirm').on('change', function() {
+                let selectedVal = $(this).val();
+
+                console.log(selectedVal);
+                if (selectedVal == 'disagree') {
+                    $('#reason_diagree_element').show();
+                } else {
+                    $('#reason_diagree_element').hide();
+                }
+            })
+        })
     </script>
 @endsection

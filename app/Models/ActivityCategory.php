@@ -23,4 +23,14 @@ class ActivityCategory extends Model
     {
         return $this->hasMany(Activity::class);
     }
+
+    /**
+     * Get all of the subangActivity for the ActivityCategory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subangActivity(): HasMany
+    {
+        return $this->hasMany(SubangActivity::class);
+    }
 }

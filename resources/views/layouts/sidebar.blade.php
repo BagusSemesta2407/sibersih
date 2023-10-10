@@ -10,8 +10,8 @@
         </li>
 
         @role('user')
-            <li class="sidebar-item {{ request()->is('pengguna/list-activity*') ? 'active' : '' }} ">
-                <a href="{{ route('pengguna.index-list-activity') }}" class='sidebar-link'>
+            <li class="sidebar-item {{ request()->is('pengguna/activity*') ? 'active' : '' }} ">
+                <a href="{{ route('pengguna.activity.index') }}" class='sidebar-link'>
                     <i class="bi bi-activity"></i>
                     <span>Kegiatan</span>
                 </a>
@@ -50,6 +50,7 @@
                 class="sidebar-item has-sub
             {{ request()->is('operator/activity-categories*') ? 'active' : '' }} ||
             {{ request()->is('operator/activities*') ? 'active' : '' }}
+            {{ request()->is('operator/subang-sub-district-activity*') ? 'active' : '' }}
             ">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-stack"></i>
@@ -66,6 +67,12 @@
                     <li class="submenu-item {{ request()->is('operator/activities*') ? 'active' : '' }}">
                         <a href="{{ route('operator.activities.index') }}">
                             Kegiatan
+                        </a>
+                    </li>
+
+                    <li class="submenu-item {{ request()->is('operator/subang-sub-district-activity*') ? 'active' : '' }}">
+                        <a href="{{ route('operator.subang-sub-district-activity.index') }}">
+                            Kegiatan Kantor Kecamatan Subang
                         </a>
                     </li>
                 </ul>

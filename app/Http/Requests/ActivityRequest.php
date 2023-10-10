@@ -23,7 +23,6 @@ class ActivityRequest extends FormRequest
     {
         $rules = [
             'activity_category_id' => 'required',
-            'village_id' => 'required',
             'date' => 'required',
             'name' => 'required',
             'address_details' => 'required',
@@ -37,7 +36,6 @@ class ActivityRequest extends FormRequest
     {
         return [
             'activity_category_id.required' => 'Kategori Kegiatan Wajib Diisi',
-            'village_id.required' => 'Kelurahan Wajib Diisi',
             'name.required' => 'Nama Kegiatan Wajib Diisi',
             'date.required' => 'Waktu Kegiatan Wajib Diisi',
             'address_details.required' => 'Alamat Lengkap Wajib Diisi',

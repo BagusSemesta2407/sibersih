@@ -31,11 +31,11 @@
                         <div class="card-body">
                             @if (@$activity->exists)
                                 <form class="form form-vertical" enctype="multipart/form-data" method="POST"
-                                    action="{{ route('operator.activities.update', $activity) }}" id="form">
+                                    action="{{ route('pengguna.activity.update', $activity) }}" id="form">
                                     @method('PUT')
                                 @else
                                     <form class="form form-vertical" enctype="multipart/form-data" method="POST"
-                                        action="{{ route('operator.activities.store') }}" id="form">
+                                        action="{{ route('pengguna.activity.store') }}" id="form">
                             @endif
                             {{ csrf_field() }}
                             <div class="form-body">
@@ -70,7 +70,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <label for="name" class="col-sm-3 col-form-label">
                                                 Kelurahan 
                                             </label>
@@ -95,7 +95,7 @@
                                                     <span class="text-danger">{{ $errors->first('village_id') }}</span>
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group">
                                             <label for="first-name-vertical">Tanggal Kegiatan</label>

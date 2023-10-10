@@ -359,11 +359,12 @@
     </script>
 
     <script>
-        if ($('#table1').length) {
-            // Simple Datatable
-            let table1 = document.querySelector('#table1');
-            let dataTable = new simpleDatatables.DataTable(table1);
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const tables = document.querySelectorAll('#table1');
+            tables.forEach(table => {
+                const dataTable = new simpleDatatables.DataTable(table);
+            });
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

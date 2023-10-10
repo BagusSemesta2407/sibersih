@@ -17,6 +17,8 @@ return new class extends Migration
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
             $table->text('description')->nullable();
+            $table->enum('status', ['waiting', 'disagree', 'finish']);
+            $table->text('reason_disagree')->nullable();
             $table->timestamps();
         });
     }
