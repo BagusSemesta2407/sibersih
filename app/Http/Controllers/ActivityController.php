@@ -29,8 +29,7 @@ class ActivityController extends Controller
             $activityOnProgressStatus = Activity::where('status', 'on progress')->get();
             $activityDisagreeStatus = Activity::where('status', 'disagree')->get();
             $activityiFinishStatus = Activity::where('status', 'finish')->first();
-            $activityDetail=ActivityDetail::where('activity_id', @$activityiFinishStatus->id)->get();
-
+            $activityDetail = ActivityDetail::where('activity_id', @$activityiFinishStatus->id)->get();
         } elseif ($role == 'user') {
             $employee = Employee::where('user_id', $auth->id)->first();
             $villageId = $employee->village_id;
@@ -39,7 +38,7 @@ class ActivityController extends Controller
             $activityOnProgressStatus = Activity::where('status', 'on progress')->where('village_id', $villageId)->get();
             $activityDisagreeStatus = Activity::where('status', 'disagree')->where('village_id', $villageId)->get();
             $activityiFinishStatus = Activity::where('status', 'finish')->where('village_id', $villageId)->first();
-            $activityDetail=ActivityDetail::where('activity_id', $activityiFinishStatus->id)->get();
+            $activityDetail = ActivityDetail::where('activity_id', @$activityiFinishStatus->id)->get();
         }
 
         // $countActivityWaitingStatus = $activityWaitingStatus->count();
@@ -218,13 +217,13 @@ class ActivityController extends Controller
      */
     public function validateWaitingStatus($id)
     {
-        $title='Kegiatan';
-        $activity=Activity::find($id);
+        $title = 'Kegiatan';
+        $activity = Activity::find($id);
         $imageActivity = ImageActivity::where('activity_id', $activity->id)->get();
 
         return view('pages.activity.formValidateWaitingStatus', [
             'title' => $title,
-            'activity'=> $activity,
+            'activity' => $activity,
             'imageActivity' => $imageActivity
         ]);
     }
@@ -249,10 +248,10 @@ class ActivityController extends Controller
      */
     public function getActivityForUpload($id)
     {
-        $title='Kegiatan';
+        $title = 'Kegiatan';
 
-        $activity=Activity::find($id);
-        $imageActivity=ImageActivity::where('activity_id', $activity->id)->get();
+        $activity = Activity::find($id);
+        $imageActivity = ImageActivity::where('activity_id', $activity->id)->get();
 
         return view('pages.activityDetail.form', [
             'title' => $title,
@@ -266,18 +265,18 @@ class ActivityController extends Controller
      */
     public function postActivity(Request $request, $id)
     {
-        $activityDetail=ActivityDetail::create([
+        $activityDetail = ActivityDetail::create([
             'activity_id' => $id,
             'description' => $request->description,
             'status' => 'waiting'
         ]);
 
-        $image=$request->image;
-        $video=$request->video;
+        $image = $request->image;
+        $video = $request->video;
 
         if ($image) {
             foreach ($image as $dataImage) {
-                $saveImage=ImageActivityDetail::saveFile($dataImage);
+                $saveImage = ImageActivityDetail::saveFile($dataImage);
                 ImageActivityDetail::create([
                     'activity_detail_id' => $activityDetail->id,
                     'file' => $saveImage
@@ -307,8 +306,8 @@ class ActivityController extends Controller
      */
     public function validateUploadActivityIndex($id)
     {
-        $title='Kegiatan';
-        $activityDetail=ActivityDetail::find($id);
+        $title = 'Kegiatan';
+        $activityDetail = ActivityDetail::find($id);
 
         return view('pages.activityDetail.validateUploadActivity', [
             'title' => $title,
@@ -321,9 +320,9 @@ class ActivityController extends Controller
      */
     public function validateUploadActivityForm(Request $request, $id)
     {
-        $data=[
+        $data = [
             'status' => $request->status,
-            'reason_disagree'=> $request->reason_disagree
+            'reason_disagree' => $request->reason_disagree
         ];
 
         ActivityDetail::where('activity_id', $id)->update($data);
@@ -336,8 +335,8 @@ class ActivityController extends Controller
      */
     public function uploadActivityEdit($id)
     {
-        $title='Kegiatan';
-        $activityDetail=ActivityDetail::find($id);
+        $title = 'Kegiatan';
+        $activityDetail = ActivityDetail::find($id);
 
         return view('pages.activityDetail.formEdit', [
             'title' => $title,
@@ -354,47 +353,49 @@ class ActivityController extends Controller
             'description' => $request->description,
             'status' => 'waiting'
         ];
-        
-        // Retrieve the activityDetail by its ID
-        $activityDetail = ActivityDetail::where('id', $id)->first();
-        
-        if ($activityDetail) {
-            // Update the activityDetail
-            $activityDetail->update($dataActivityDetail);
-        
-            $image = $request->image;
-            // $video = $request->video;
 
-            $oldFile=[];
-            if ($oldFile) {
-                ImageActivityDetail::deleteFileArray($activityDetail->id, $oldFile);
-                ImageActivityDetail::where('activity_detail_id', $activityDetail->id)->delete();
+        $activityDetail = ActivityDetail::find($id);
+        $activityDetail->update($dataActivityDetail);
+
+        $arrayImageActivityDetailId=$activityDetail->imageActivityDetail->pluck('id');
+
+        $image = $request->image;
+        $video = $request->video;
+
+        if ($image) {
+            $newImages = [];
+
+            foreach ($image as $dataImage) {
+                $saveImage = ImageActivityDetail::saveFile($dataImage);
+
+                $newImages[] = [
+                    'activity_detail_id' => $id,
+                    'file' => $saveImage
+                ];
             }
 
-        
-            if ($image) {
-                foreach ($image as $dataImage) {
-                    $saveImage = ImageActivityDetail::saveFile($dataImage);
-        
-                    ImageActivityDetail::create([
-                        'activity_detail_id' => $activityDetail->id,
-                        'file' => $saveImage
-                    ]);
-                }
-            }
-        
-            // if ($video) {
-            //     foreach ($video as $dataVideo) {
-            //         $saveVideo = ImageActivityDetail::saveFile($dataVideo);
-            //         ImageActivityDetail::create([
-            //             'activity_detail_id' => $activityDetail->id,
-            //             'file' => $saveVideo
-            //         ]);
-            //     }
-            // }
+            ImageActivityDetail::deleteFileArray($id, $arrayImageActivityDetailId);
+            ImageActivityDetail::whereIn('id',$arrayImageActivityDetailId)->delete();
+            ImageActivityDetail::insert($newImages);
         }
-        
+
+        if ($video) {
+            $newVideos = [];
+
+            foreach ($video as $dataVideo) {
+                $saveVideo = ImageActivityDetail::saveFile($dataVideo);
+
+                $newVideos[] = [
+                    'activity_detail_id' => $id,
+                    'file' => $saveVideo
+                ];
+            }
+
+            ImageActivityDetail::deleteFileArray($id, $arrayImageActivityDetailId);
+            ImageActivityDetail::whereIn('id',$arrayImageActivityDetailId)->delete();
+            ImageActivityDetail::insert($newVideos);
+        }
+
         return redirect()->route('pengguna.activity.index')->with('success', 'Data Berhasil Diupload');
-        
     }
 }

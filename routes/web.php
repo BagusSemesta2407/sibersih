@@ -32,6 +32,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/', [LandingPageController::class, 'home'])->name('beranda');
     Route::get('activity-all', [LandingPageController::class, 'indexActivity'])->name('index-activity');
     Route::get('activity-all/{id}', [LandingPageController::class, 'indexAxticityDetail'])->name('detail-activity');
+
+    Route::get('subang-activity',[LandingPageController::class, 'subangActivityIndex'])->name('subang-activity');
+    Route::get('subang-activity/{subang_activity}',[LandingPageController::class, 'subangActivityDetail'])->name('detail-subang-activity');
     Route::get('get-activity/{id?}', [LandingPageController::class, 'getActivity'])->name('get-aktivitas');
     Route::get('schedule-information-activity/{id}', [LandingPageController::class, 'scheduleActivityDetail'])->name('schedule-information-detail');
     Auth::routes();

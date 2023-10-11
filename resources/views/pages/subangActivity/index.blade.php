@@ -48,10 +48,12 @@
                                                 class="btn btn-sm btn-warning" title="Edit">
                                                 <i class="bi bi-pen"></i>
                                             </a>
+                                            &nbsp;
                                             <a href="{{ route('operator.subang-sub-district-activity.show', $item->id) }}"
                                                 class="btn btn-sm btn-success" title="Detail">
                                                 <i class="bi bi-eye"></i>
                                             </a>
+                                            &nbsp;
                                             <button class="btn btn-sm btn-danger delete"
                                                 data-url="{{ route('operator.subang-sub-district-activity.destroy', $item->id) }}"
                                                 title="Delete">

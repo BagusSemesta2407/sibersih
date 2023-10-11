@@ -165,6 +165,96 @@
         </div>
     </div>
 
+    <div id="subang" class="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 offset-lg-4  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.3s">
+                    <div class="section-heading">
+                        <h6>Kegiatan Terbaru</h6>
+                        <h4>Kegiatan Kebersihan</h4>
+                        <div class="line-dec"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <div class="blog-post">
+                        <div class="down-content">
+                            <div id="carouselExample" class="carousel slide">
+                                <div class="carousel-inner">
+                                    @foreach ($imageSubangActivity as $key => $imgSubang)
+                                        <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                            <img src="{{ $imgSubang->file_url }}" class="d-block w-100" alt="...">
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                    <div class="blog-posts">
+                        <div class="row">
+                            @forelse ($subangActivity as $value)
+                                <div class="col-lg-12">
+                                    <div class="post-item">
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="{{ $value->imageSubangActivity->first()->file_url }}"
+                                                    alt="">
+                                            </a>
+                                        </div>
+                                        <div class="right-content">
+                                            <a href="#">
+                                                <h4>{{ $value->name }}</h4>
+                                            </a>
+                                            <p>
+                                                {{ Str::limit($value['description'], 50) }}
+                                                <a href="{{ route('detail-subang-activity', $value) }}">
+                                                    Selengkapnya ...
+                                                </a>
+                                            </p>
+                                            <br>
+                                            <p>{{ \Carbon\Carbon::parse($value->date)->translatedFormat('d F Y') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="col-lg-12">
+                                    <div class="post-item">
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img src="/sibersih-logo.png" alt="" width="280"
+                                                    height="280">
+                                            </a>
+                                        </div>
+                                        <div class="right-content">
+                                            <p>Belum Ada Kegiatan Kebersihan</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforelse
+                            <div class="col-lg-12">
+                                <div class="border-first-button scroll-to-section float-end">
+                                    <a href="{{ route('subang-activity') }}">Kegiatan Lebih Lengkap .. </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="services" class="services section">
         <div class="container">
             <div class="row">

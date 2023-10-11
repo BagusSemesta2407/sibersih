@@ -103,7 +103,7 @@
                                                 class="form-control @error('date')
                                             is-invalid
                                         @enderror"
-                                                name="date" placeholder="Masukkan Nomor Induk"
+                                                name="date" 
                                                 value="{{ old('date', @$activity->date) }}">
                                             @if ($errors->has('date'))
                                                 <span class="text-danger">{{ $errors->first('date') }}</span>
@@ -116,7 +116,7 @@
                                                 class="form-control @error('name')
                                             is-invalid
                                         @enderror"
-                                                name="name" placeholder="Masukkan Nomor Induk"
+                                                name="name" placeholder="Masukkan Nama Kegiatan"
                                                 value="{{ old('name', @$activity->name) }}">
                                             @if ($errors->has('name'))
                                                 <span class="text-danger">{{ $errors->first('name') }}</span>

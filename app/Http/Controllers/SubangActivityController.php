@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubangActivityRequest;
 use App\Models\ActivityCategory;
 use App\Models\ImageSubangActivity;
 use App\Models\SubangActivity;
@@ -41,7 +42,7 @@ class SubangActivityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubangActivityRequest $request)
     {
         $subangActivity=SubangActivity::create([
             'activity_category_id' => $request->activity_category_id,
@@ -92,7 +93,7 @@ class SubangActivityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubangActivity $subangActivity)
+    public function update(Request $request, $id)
     {
         $data=[
             'activity_category_id' => $request->activity_category_id,
@@ -101,11 +102,12 @@ class SubangActivityController extends Controller
             'address_details'=> $request->address_details,
         ];
 
-        $subangActivity->update($data);
+        $subangActivity=SubangActivity::where('id', $id)->update($data);
 
         if ($request->old) {
-            ImageSubangActivity::deleteFileArray($subangActivity->id, $request->old);
-            ImageSubangActivity::where('subang_activity_id', $subangActivity->id)
+            ImageSubangActivity::deleteFileArray($subangActivity, $request->old);
+            
+            ImageSubangActivity::where('subang_activity_id', $subangActivity)
             ->whereNotIn('id', $request->old)->delete();
         }
 
@@ -113,7 +115,7 @@ class SubangActivityController extends Controller
             foreach ($request->image as $data) {
                 $fileImage=ImageSubangActivity::saveFile($data);
                 ImageSubangActivity::create([
-                    'subang_activity_id'=>$subangActivity->id,
+                    'subang_activity_id'=>$subangActivity,
                     'file'=>$fileImage
                 ]);
             }

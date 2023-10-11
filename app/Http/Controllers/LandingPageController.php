@@ -6,6 +6,8 @@ use App\Models\Activity;
 use App\Models\ActivityDetail;
 use App\Models\ImageActivity;
 use App\Models\ImageActivityDetail;
+use App\Models\ImageSubangActivity;
+use App\Models\SubangActivity;
 use App\Models\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,13 +43,17 @@ class LandingPageController extends Controller
 
         $activityDetail = ActivityDetail::with('activity', 'imageActivityDetail')->latest()->take(1)->get();
 
+        $imageSubangActivity=ImageSubangActivity::get();
+        $subangActivity=SubangActivity::latest()->take(1)->get();
         return view('landingPage.index', [
             'village' => $village,
             'activity' => $activity,
             'imageAcitvityDetail' => $imageAcitvityDetail,
             'activityDetail' => $activityDetail,
             'rankCountVillages' => $rankCountVillages,
-            'scheduleActivity' => $scheduleActivity
+            'scheduleActivity' => $scheduleActivity,
+            'imageSubangActivity' => $imageSubangActivity,
+            'subangActivity' => $subangActivity
         ]);
     }
 
@@ -114,6 +120,24 @@ class LandingPageController extends Controller
             'imageActivityDetail' => $imageActivityDetail,
             'activity' => $activity,
             'imageActivity' => $imageActivity
+        ]);
+    }
+
+    public function subangActivityIndex()
+    {
+        $subangActivity=SubangActivity::with('imageSubangActivity')->latest()->paginate(5);
+
+        return view('landingPage.subangActivity.index', [
+            'subangActivity' => $subangActivity
+        ]);
+    }
+
+    public function subangActivityDetail($id)
+    {
+        $subangActivityDetail=SubangActivity::find($id);
+
+        return view('landingPage.subangActivity.detail', [
+            'subangActivityDetail'=>$subangActivityDetail
         ]);
     }
 }

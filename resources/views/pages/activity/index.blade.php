@@ -85,8 +85,6 @@
                                                 ({{ $item->address_details }})
                                             </td>
 
-
-
                                             <td>
                                                 <div class="d-flex">
                                                     @if (Auth::user()->getRoleNames()[0] == 'user')
@@ -262,6 +260,8 @@
                                                                 <i class="bi bi-pen"></i>
                                                             </a>
                                                         </div>
+                                                    @else
+                                                        <small><i>Tidak ada Aksi</i></small>
                                                     @endif
                                                 @else
                                                     @if ($item->status == 'waiting')

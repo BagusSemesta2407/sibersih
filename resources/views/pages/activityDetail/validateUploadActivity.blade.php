@@ -144,7 +144,7 @@
                                         <option value="" selected="" disabled="">
                                             Konfirmasi Kegiatan
                                         </option>
-                                        <option value="on progress" id="disetujui"
+                                        <option value="finish" id="disetujui"
                                             {{ $activityDetail->status == 'finish' ? 'selected' : '' }}>
                                             Disetujui
                                         </option>

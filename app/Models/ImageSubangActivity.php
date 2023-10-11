@@ -72,7 +72,7 @@ class ImageSubangActivity extends Model
             foreach ($imageSubangActivity as $file) {
                 $path = 'public/file/activity/subangActivity/' . $file->file;
                 if (Storage::exists($path)) {
-                    Storage::delete('public/file/activity/subangActivity/' . $file->fil);
+                    Storage::delete('public/file/activity/subangActivity/' . $file->file);
                 }
             }
         }

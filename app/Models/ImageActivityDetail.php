@@ -43,15 +43,13 @@ class ImageActivityDetail extends Model
         // $filenames = [];
 
         if ($file) {
-            // foreach ($request->file('image') as $file) {
-                $ext = $file->getClientOriginalExtension();
-                $filename = date('YmdHis') . uniqid() . '.' . $ext;
-                $file->storeAs('public/file/activityDetails', $filename);
-                // $filenames[] = $filename;
-            // }
+            $ext = $file->getClientOriginalExtension();
+            $filename = date('YmdHis') . uniqid() . '.' . $ext;
+            $file->storeAs('public/file/activityDetails', $filename);
+            return $filename;
         }
 
-        return $filename;
+        return null;
     }
 
     /**
@@ -68,15 +66,15 @@ class ImageActivityDetail extends Model
         return null;
     }
 
-    public static function deleteFileArray(int $activityDetailId, array $arrayId)
-    {
+    public static function deleteFileArray(int $activityDetailId, $arrayId)
+    {   
         $imageActivityDetail = ImageActivityDetail::where('activity_detail_id', $activityDetailId)
-        ->whereNotIn('id', $arrayId)->get();
+        ->whereIn('id', $arrayId)->get();
         if (isset($imageActivityDetail)) {
             foreach ($imageActivityDetail as $file) {
                 $path = 'public/file/activityDetails/' . $file->file;
                 if (Storage::exists($path)) {
-                    Storage::delete('public/file/activityDetails/' . $file->fil);
+                    Storage::delete($path);
                 }
             }
         }

@@ -71,7 +71,7 @@
                                                 class="form-control @error('username')
                                             is-invalid
                                         @enderror"
-                                                name="username" placeholder="Masukkan Nomor Induk"
+                                                name="username" placeholder="Masukkan Username"
                                                 value="{{ old('username', @$employee->user->username) }}">
                                             @if ($errors->has('username'))
                                                 <span class="text-danger">{{ $errors->first('username') }}</span>
@@ -96,7 +96,7 @@
                                                 class="form-control @error('email')
                                             is-invalid
                                         @enderror"
-                                                name="email" placeholder="Masukkan Email"
+                                                name="email" placeholder="Masukkan Email Pengguna"
                                                 value="{{ old('email', @$employee->user->email) }}">
                                             @if ($errors->has('email'))
                                                 <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -177,8 +177,6 @@
     </section>
 @endsection
 @section('script')
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
-
     <script type="text/javascript">
         $(document).ready(function(e) {
             $('#image').change(function() {

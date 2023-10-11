@@ -27,6 +27,12 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
+                            <div class="alert alert-danger">
+                                <p>
+                                    <i class="bi bi-exclamation-triangle"></i> Mohon Maaf Upload Bukti Kegiatan Yang Anda Lakukan Belum Disetujui. Mohon Untuk Melakukan Upload Ulang
+                                </p>
+                                <b>Alasan Penolakan:</b> {{ $activityDetail->reason_disagree }}
+                            </div>
                             <div class="form-body">
                                 <div class="row">
                                     {{-- {{ $errors }} --}}
