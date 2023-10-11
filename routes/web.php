@@ -91,10 +91,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::get('activity/upload-activity/{activity_detail}', [ActivityController::class, 'getActivityForUpload'])->name('upload-activity');
                 Route::post('activity/upload-activity/{activity_detail}', [ActivityController::class, 'postActivity'])->name('post-upload-activity');
 
+                Route::get('activity/update-activity/{update_activity_details}', [ActivityController::class, 'uploadActivityEdit'])->name('update-upload-activity');
+                Route::post('activity/update-activity/{update_activity_details}', [ActivityController::class, 'uploadActivityUpdate'])->name('post-update-upload-activity');
+
                 Route::get('list-activity', [ActivityDetailController::class, 'index'])->name('index-list-activity');
+             
                 Route::get('create-activity-details/{id}', [ActivityDetailController::class, 'getActivity'])->name('get-activity');
                 Route::post('create-activity-details/{id}', [ActivityDetailController::class, 'postActivityDetail'])->name('post-activity');
-                
                 
                 Route::get('profile', [ProfilController::class, 'index'])->name('profile');
                 Route::post('profile/{update}', [ProfilController::class, 'update'])->name('update-profile');

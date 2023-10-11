@@ -334,14 +334,67 @@ class ActivityController extends Controller
     /**
      * Aksi (get) yang dilakukan oleh pengguna untuk melakukan perubahan pada saat upload bukti kegiatan.
      */
-    public function editUploadActivity($id)
+    public function uploadActivityEdit($id)
     {
         $title='Kegiatan';
         $activityDetail=ActivityDetail::find($id);
 
-        return view('pages.activityDetail.validateUploadActivity', [
+        return view('pages.activityDetail.formEdit', [
             'title' => $title,
             'activityDetail' => $activityDetail,
         ]);
+    }
+
+    /**
+     * Aksi (post) yang dilakukan oleh pengguna untuk upload bukti kegiatan.
+     */
+    public function uploadActivityUpdate(Request $request, $id)
+    {
+        $dataActivityDetail = [
+            'description' => $request->description,
+            'status' => 'waiting'
+        ];
+        
+        // Retrieve the activityDetail by its ID
+        $activityDetail = ActivityDetail::where('id', $id)->first();
+        
+        if ($activityDetail) {
+            // Update the activityDetail
+            $activityDetail->update($dataActivityDetail);
+        
+            $image = $request->image;
+            // $video = $request->video;
+
+            $oldFile=[];
+            if ($oldFile) {
+                ImageActivityDetail::deleteFileArray($activityDetail->id, $oldFile);
+                ImageActivityDetail::where('activity_detail_id', $activityDetail->id)->delete();
+            }
+
+        
+            if ($image) {
+                foreach ($image as $dataImage) {
+                    $saveImage = ImageActivityDetail::saveFile($dataImage);
+        
+                    ImageActivityDetail::create([
+                        'activity_detail_id' => $activityDetail->id,
+                        'file' => $saveImage
+                    ]);
+                }
+            }
+        
+            // if ($video) {
+            //     foreach ($video as $dataVideo) {
+            //         $saveVideo = ImageActivityDetail::saveFile($dataVideo);
+            //         ImageActivityDetail::create([
+            //             'activity_detail_id' => $activityDetail->id,
+            //             'file' => $saveVideo
+            //         ]);
+            //     }
+            // }
+        }
+        
+        return redirect()->route('pengguna.activity.index')->with('success', 'Data Berhasil Diupload');
+        
     }
 }

@@ -38,7 +38,7 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->activityCategory->name }}" readonly>
+                                                value="{{ $activityDetail->activity->activityCategory->name }}" readonly>
                                         </div>
 
                                         <div class="form-group">
@@ -48,7 +48,7 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->name }}" readonly>
+                                                value="{{ $activityDetail->activity->name }}" readonly>
                                         </div>
 
                                         <div class="form-group">
@@ -58,7 +58,7 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->village->name }}" readonly>
+                                                value="{{ $activityDetail->activity->village->name }}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="first-name-vertical">Alamat Lengkap</label>
@@ -67,20 +67,20 @@
                                             is-invalid
                                         @enderror"
                                                 name="name" placeholder="Masukkan Nama Kategori Kegiatan"
-                                                value="{{ $activity->address_details }}" readonly>
+                                                value="{{ $activityDetail->activity->address_details }}" readonly>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="first-name-vertical">Waktu Kegiatan</label>
                                             <p>
-                                                {{ \Carbon\Carbon::parse($activity->date)->translatedFormat('d F Y') }}
+                                                {{ \Carbon\Carbon::parse($activityDetail->activity->date)->translatedFormat('d F Y') }}
                                             </p>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="first-name-vertical">Status</label>
                                             <div class="col-md-12">
-                                                @if ($activity->status == 'on progress')
+                                                @if ($activityDetail->activity->status == 'on progress')
                                                     <span class="badge bg-warning">On Progress</span>
                                                 @else
                                                     <span class="badge bg-success">Selesai</span>
@@ -92,7 +92,7 @@
                                             <label for="first-name-vertical">Dokumentasi Lokasi</label>
                                             <div class="row row-cols-1 row-cols-md-4 g-1"
                                                 data-masonry='{"percentPosition": true }'>
-                                                @forelse ($imageActivity as $item)
+                                                @forelse ($activityDetail->activity['imageActivity'] as $item)
                                                     <div class="col">
                                                         <div class="card">
                                                             <a href="{{ $item->image_url }}" data-fancybox="gallery"
@@ -121,7 +121,7 @@
                                     @method('PUT')
                                 @else --}}
                                     <form class="form form-vertical" enctype="multipart/form-data" method="POST"
-                                        action="{{ route('pengguna.post-upload-activity', $activity) }}" id="form">
+                                        action="{{ route('pengguna.post-update-upload-activity', $activityDetail) }}" id="form">
                             {{-- @endif --}}
                             {{ csrf_field() }}
                             <h5>Form Upload Bukti Kegiatan</h5>
@@ -152,7 +152,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="first-name-vertical">Deskripsi</label>
-                                        <textarea name="description" id="description" class="form-control"></textarea>
+                                        <textarea name="description" id="description" class="form-control">{{ $activityDetail->description }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,6 @@
         </div>
         <div class="col-12 d-flex justify-content-end">
             <button type="submit" class="btn btn-outline-primary me-1 mb-1" id="btnSubmit">
-                {{-- {{ $aksi }} --}}
                 Upload
                 <span class="spinner-border ml-2 d-none" id="loader" style="width: 1rem; height: 1rem;" role="status">
                 </span>

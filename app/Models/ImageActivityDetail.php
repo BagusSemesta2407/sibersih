@@ -68,9 +68,9 @@ class ImageActivityDetail extends Model
         return null;
     }
 
-    public static function deleteFileArray(int $activityId, array $arrayId)
+    public static function deleteFileArray(int $activityDetailId, array $arrayId)
     {
-        $imageActivityDetail = ImageActivityDetail::where('activity_id', $activityId)
+        $imageActivityDetail = ImageActivityDetail::where('activity_detail_id', $activityDetailId)
         ->whereNotIn('id', $arrayId)->get();
         if (isset($imageActivityDetail)) {
             foreach ($imageActivityDetail as $file) {

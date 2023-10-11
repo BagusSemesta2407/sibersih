@@ -255,9 +255,9 @@
 
                                             <td>
                                                 @if (Auth::user()->getRoleNames()[0] == 'user')
-                                                    @if ($item->status == 'disgaree')
+                                                    @if ($item->status == 'disagree')
                                                         <div class="d-flex">
-                                                            <a href="{{ route('pengguna.activity.edit', $item->id) }}"
+                                                            <a href="{{ route('pengguna.update-upload-activity', $item->id) }}"
                                                                 class="btn btn-sm btn-warning" title="Edit">
                                                                 <i class="bi bi-pen"></i>
                                                             </a>
