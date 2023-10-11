@@ -20,29 +20,29 @@
                             <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
                                 aria-controls="home" aria-selected="true">
                                 Menunggu Persetujuan
-                                @if ($countActivityWaitingStatus > 0)
+                                {{-- @if ($countActivityWaitingStatus > 0)
                                     <span class="badge bg-transparant text-primary">{{ $countActivityWaitingStatus }}</span>
-                                @endif
+                                @endif --}}
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
                                 aria-controls="profile" aria-selected="false">
                                 On Progress
-                                @if ($countActivityOnProgressStatus > 0)
+                                {{-- @if ($countActivityOnProgressStatus > 0)
                                     <span
                                         class="badge bg-transparant text-primary">{{ $countActivityOnProgressStatus }}</span>
-                                @endif
+                                @endif --}}
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="disagree-tab" data-bs-toggle="tab" href="#disagree" role="tab"
                                 aria-controls="disagree" aria-selected="false">
                                 Belum Disetujui
-                                @if ($countActivityDisagreeStatus > 0)
+                                {{-- @if ($countActivityDisagreeStatus > 0)
                                     <span
                                         class="badge bg-transparant text-primary">{{ $countActivityDisagreeStatus }}</span>
-                                @endif
+                                @endif --}}
                             </a>
                         </li>
 

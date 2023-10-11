@@ -29,7 +29,7 @@ class ActivityController extends Controller
             $activityOnProgressStatus = Activity::where('status', 'on progress')->get();
             $activityDisagreeStatus = Activity::where('status', 'disagree')->get();
             $activityiFinishStatus = Activity::where('status', 'finish')->first();
-            $activityDetail=ActivityDetail::where('activity_id', $activityiFinishStatus->id)->get();
+            $activityDetail=ActivityDetail::where('activity_id', @$activityiFinishStatus->id)->get();
 
         } elseif ($role == 'user') {
             $employee = Employee::where('user_id', $auth->id)->first();
@@ -42,21 +42,21 @@ class ActivityController extends Controller
             $activityDetail=ActivityDetail::where('activity_id', $activityiFinishStatus->id)->get();
         }
 
-        $countActivityWaitingStatus = $activityWaitingStatus->count();
-        $countActivityOnProgressStatus = $activityOnProgressStatus->count();
-        $countActivityDisagreeStatus = $activityDisagreeStatus->count();
-        $countActivityiFinishStatus = $activityiFinishStatus->count();
+        // $countActivityWaitingStatus = $activityWaitingStatus->count();
+        // $countActivityOnProgressStatus = $activityOnProgressStatus->count();
+        // $countActivityDisagreeStatus = $activityDisagreeStatus->count();
+        // $countActivityiFinishStatus = $activityiFinishStatus->count();
 
         return view('pages.activity.index', [
             'title' => $title,
             'activityWaitingStatus' => $activityWaitingStatus,
             'activityOnProgressStatus' => $activityOnProgressStatus,
             'activityiFinishStatus' => $activityiFinishStatus,
-            'countActivityiFinishStatus' => $countActivityiFinishStatus,
-            'countActivityWaitingStatus' => $countActivityWaitingStatus,
-            'countActivityOnProgressStatus' => $countActivityOnProgressStatus,
+            // 'countActivityiFinishStatus' => $countActivityiFinishStatus,
+            // 'countActivityWaitingStatus' => $countActivityWaitingStatus,
+            // 'countActivityOnProgressStatus' => $countActivityOnProgressStatus,
             'activityDisagreeStatus' => $activityDisagreeStatus,
-            'countActivityDisagreeStatus' => $countActivityDisagreeStatus,
+            // 'countActivityDisagreeStatus' => $countActivityDisagreeStatus,
             'activityDetail' => $activityDetail
         ]);
     }
