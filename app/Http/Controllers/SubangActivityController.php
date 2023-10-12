@@ -67,9 +67,15 @@ class SubangActivityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SubangActivity $subangActivity)
+    public function show($id)
     {
-        //
+        $title='Kegiatan';
+        $subangActivity=SubangActivity::find($id);
+
+        return view('pages.subangActivity.detail', [
+            'subangActivity' => $subangActivity,
+            'title' => $title
+        ]);
     }
 
     /**
