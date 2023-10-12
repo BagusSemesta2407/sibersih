@@ -61,6 +61,11 @@ class LandingPageController extends Controller
 
     public function scheduleActivityDetail($id)
     {
+        try {
+            $id = Crypt::decryptString($id);
+        } catch (DecryptException $e){
+            abort(404);
+        }
         $scheduleActivity=Activity::find($id);
         $imageScheduleActivity=ImageActivity::where('activity_id', $scheduleActivity->id)->get();
 
@@ -72,6 +77,7 @@ class LandingPageController extends Controller
 
     public function getActivity($id)
     {
+        
         $village = Village::find($id);
 
         if (!$village) {
@@ -113,7 +119,7 @@ class LandingPageController extends Controller
         } catch (DecryptException $e){
             abort(404);
         }
-        
+
         $activityDetail = ActivityDetail::find($id);
         $imageActivityDetail = ImageActivityDetail::where('activity_detail_id', $activityDetail->id)->get();
 

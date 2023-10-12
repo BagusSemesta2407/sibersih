@@ -180,11 +180,15 @@
                         <div class="down-content">
                             <div id="carouselExample" class="carousel slide">
                                 <div class="carousel-inner">
-                                    @foreach ($imageSubangActivity as $key => $imgSubang)
+                                    @forelse ($imageSubangActivity as $key => $imgSubang)
                                         <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
                                             <img src="{{ $imgSubang->file_url }}" class="d-block w-100" alt="...">
                                         </div>
-                                    @endforeach
+                                        @empty
+                                        <div class="carousel-item active">
+                                            <img src="/sibersih-logo.png" class="d-block w-100" alt="...">
+                                        </div>
+                                    @endforelse
                                 </div>
 
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
@@ -208,13 +212,13 @@
                                 <div class="col-lg-12">
                                     <div class="post-item">
                                         <div class="thumb">
-                                            <a href="#">
+                                            <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                 <img src="{{ $value->imageSubangActivity->first()->file_url }}"
                                                     alt="">
                                             </a>
                                         </div>
                                         <div class="right-content">
-                                            <a href="#">
+                                            <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                 <h4>{{ $value->name }}</h4>
                                             </a>
                                             <p>
@@ -304,7 +308,7 @@
                                                                                 </td>
                                                                                 <td>
                                                                                     <a
-                                                                                        href="{{ route('schedule-information-detail', $item->id) }}">Detail</a>
+                                                                                        href="{{ route('schedule-information-detail', Crypt::encryptString($item->id)) }}">Detail</a>
                                                                                 </td>
                                                                             </tr>
                                                                         @empty

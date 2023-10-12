@@ -23,6 +23,9 @@ class ReportController extends Controller
         ];
         $activity = Activity::filter($filter)
             ->where('status', 'finish')
+            ->whereHas('activityDetail', function($q){
+                $q->whereIn('status', ['finish']);
+            })
             ->latest()
             ->get();
 
