@@ -171,7 +171,7 @@
                 <div class="col-lg-4 offset-lg-4  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.3s">
                     <div class="section-heading">
                         <h6>Kegiatan Terbaru</h6>
-                        <h4>Kegiatan Kebersihan</h4>
+                        <h4>Kegiatan Kebersihan Kantor Kecamatan Subang</h4>
                         <div class="line-dec"></div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                                             </a>
                                             <p>
                                                 {{ Str::limit($value['description'], 50) }}
-                                                <a href="{{ route('detail-subang-activity', $value) }}">
+                                                <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                     Selengkapnya ...
                                                 </a>
                                             </p>
@@ -430,7 +430,7 @@
                                 <div class="col-lg-12">
                                     <div class="post-item">
                                         <div class="thumb">
-                                            <a href="#">
+                                            <a href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
                                                 @if (str_contains($value->imageActivityDetail, '.jpg') ||
                                                         str_contains($value->imageActivityDetail, '.jpeg') ||
                                                         str_contains($value->imageActivityDetail, '.png'))
@@ -440,12 +440,12 @@
                                             </a>
                                         </div>
                                         <div class="right-content">
-                                            <a href="#">
+                                            <a href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
                                                 <h4>{{ $value->activity->name }}</h4>
                                             </a>
                                             <p>
                                                 {{ Str::limit($value['description'], 50) }}
-                                                <a href="{{ route('detail-activity', $value) }}">
+                                                <a href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
                                                     Selengkapnya ...
                                                 </a>
                                             </p>

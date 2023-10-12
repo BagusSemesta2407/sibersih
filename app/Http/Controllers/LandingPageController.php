@@ -9,7 +9,9 @@ use App\Models\ImageActivityDetail;
 use App\Models\ImageSubangActivity;
 use App\Models\SubangActivity;
 use App\Models\Village;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class LandingPageController extends Controller
@@ -106,6 +108,12 @@ class LandingPageController extends Controller
 
     public function indexAxticityDetail($id)
     {
+        try {
+            $id = Crypt::decryptString($id);
+        } catch (DecryptException $e){
+            abort(404);
+        }
+        
         $activityDetail = ActivityDetail::find($id);
         $imageActivityDetail = ImageActivityDetail::where('activity_detail_id', $activityDetail->id)->get();
 
@@ -134,6 +142,12 @@ class LandingPageController extends Controller
 
     public function subangActivityDetail($id)
     {
+        try {
+            $id = Crypt::decryptString($id);
+        } catch (DecryptException $e){
+            abort(404);
+        }
+        
         $subangActivityDetail=SubangActivity::find($id);
 
         return view('landingPage.subangActivity.detail', [

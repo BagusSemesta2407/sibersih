@@ -43,7 +43,7 @@
                                             <div class="post-item">
                                                 <div class="col-md-4">
                                                     <div class="thumb">
-                                                        <a href="{{ route('detail-subang-activity', $value) }}">
+                                                        <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                             <img src="{{ $value->imageSubangActivity->first()->file_url }}"
                                                                 alt="">
                                                         </a>
@@ -51,12 +51,12 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="right-content">
-                                                        <a href="{{ route('detail-subang-activity', $value) }}">
+                                                        <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                             <h4>{{ $value->name }}</h4>
                                                         </a>
                                                         <p class="card-text text-justify">
                                                             {{ Str::limit($value['description'], 50) }}
-                                                            <a href="{{ route('detail-subang-activity', $value) }}">
+                                                            <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                                 Selengkapnya ...
                                                             </a>
                                                         </p>

@@ -86,7 +86,7 @@
                                             <div class="post-item">
                                                 <div class="col-md-4">
                                                     <div class="thumb">
-                                                        <a href="{{ route('detail-activity', $value) }}">
+                                                        <a href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
                                                             @if (str_contains($value->imageActivityDetail, '.jpg') ||
                                                                     str_contains($value->imageActivityDetail, '.jpeg') ||
                                                                     str_contains($value->imageActivityDetail, '.png'))
@@ -98,12 +98,12 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="right-content">
-                                                        <a href="{{ route('detail-activity', $value) }}">
+                                                        <a href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
                                                             <h4>{{ $value->activity->name }}</h4>
                                                         </a>
                                                         <p class="card-text text-justify">
                                                             {{ Str::limit($value['description'], 50) }}
-                                                            <a href="{{ route('detail-activity', $value) }}">
+                                                            <a href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
                                                                 Selengkapnya ...
                                                             </a>
                                                         </p>

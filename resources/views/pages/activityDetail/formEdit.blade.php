@@ -110,7 +110,6 @@
                                                     </div>
                                                 @empty
                                                     <div class="col text-center">
-                                                        {{-- <img src="{{ asset('empty.jpg') }}" alt="" width="280" height="280"> --}}
                                                         <p>Belum Ada Data Album</p>
                                                     </div>
                                                 @endforelse
