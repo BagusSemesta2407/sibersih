@@ -8,6 +8,20 @@
         <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
             integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async>
         </script>
+        <style>
+            .card-img-top {
+                width: 100%;
+                height: 15vw;
+                object-fit: cover;
+            }
+
+            @media (max-width: 768px) {
+                .card-img-top {
+                    height: 50vw;
+                    /* Sesuaikan tinggi untuk tampilan mobile */
+                }
+            }
+        </style>
     </head>
     <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
         <div class="container">
@@ -69,7 +83,7 @@
                                             <div class="card">
                                                 <a href="{{ $item->image_url }}" data-fancybox="gallery"
                                                     data-caption="{{ $item->caption }}">
-                                                    <img src="{{ $item->image_url }}" class="card-img-top"
+                                                    <img src="{{ $item->image_url }}" class="card-img-top img-fluid"
                                                         alt="{{ $item->caption }}">
                                                 </a>
                                             </div>

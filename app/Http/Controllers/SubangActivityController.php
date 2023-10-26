@@ -121,7 +121,7 @@ class SubangActivityController extends Controller
             foreach ($request->image as $data) {
                 $fileImage=ImageSubangActivity::saveFile($data);
                 ImageSubangActivity::create([
-                    'subang_activity_id'=>$subangActivity,
+                    'subang_activity_id'=>$id,
                     'file'=>$fileImage
                 ]);
             }

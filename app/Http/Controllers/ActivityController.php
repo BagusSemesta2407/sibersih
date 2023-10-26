@@ -28,8 +28,8 @@ class ActivityController extends Controller
             $activityWaitingStatus = Activity::where('status', 'waiting')->get();
             $activityOnProgressStatus = Activity::where('status', 'on progress')->get();
             $activityDisagreeStatus = Activity::where('status', 'disagree')->get();
-            $activityiFinishStatus = Activity::where('status', 'finish')->first();
-            $activityDetail = ActivityDetail::where('activity_id', @$activityiFinishStatus->id)->get();
+            $activityiFinishStatus = Activity::where('status', 'finish')->get();
+            $activityDetail = ActivityDetail::whereIn('activity_id', $activityiFinishStatus->pluck('id'))->get();
         } elseif ($role == 'user') {
             $employee = Employee::where('user_id', $auth->id)->first();
             $villageId = $employee->village_id;
@@ -37,8 +37,8 @@ class ActivityController extends Controller
             $activityWaitingStatus = Activity::where('status', 'waiting')->where('village_id', $villageId)->get();
             $activityOnProgressStatus = Activity::where('status', 'on progress')->where('village_id', $villageId)->get();
             $activityDisagreeStatus = Activity::where('status', 'disagree')->where('village_id', $villageId)->get();
-            $activityiFinishStatus = Activity::where('status', 'finish')->where('village_id', $villageId)->first();
-            $activityDetail = ActivityDetail::where('activity_id', @$activityiFinishStatus->id)->get();
+            $activityiFinishStatus = Activity::where('status', 'finish')->where('village_id', $villageId)->get();
+            $activityDetail = ActivityDetail::whereIn('activity_id', $activityiFinishStatus->pluck('id'))->get();
         }
 
         // $countActivityWaitingStatus = $activityWaitingStatus->count();
@@ -325,7 +325,7 @@ class ActivityController extends Controller
             'reason_disagree' => $request->reason_disagree
         ];
 
-        ActivityDetail::where('activity_id', $id)->update($data);
+        ActivityDetail::where('id', $id)->update($data);
 
         return redirect()->route('operator.activities.index')->with('success', 'Berhasil Melakukan Validasi');
     }
@@ -357,7 +357,7 @@ class ActivityController extends Controller
         $activityDetail = ActivityDetail::find($id);
         $activityDetail->update($dataActivityDetail);
 
-        $arrayImageActivityDetailId=$activityDetail->imageActivityDetail->pluck('id');
+        $arrayImageActivityDetailId = $activityDetail->imageActivityDetail->pluck('id');
 
         $image = $request->image;
         $video = $request->video;
@@ -375,7 +375,7 @@ class ActivityController extends Controller
             }
 
             ImageActivityDetail::deleteFileArray($id, $arrayImageActivityDetailId);
-            ImageActivityDetail::whereIn('id',$arrayImageActivityDetailId)->delete();
+            ImageActivityDetail::whereIn('id', $arrayImageActivityDetailId)->delete();
             ImageActivityDetail::insert($newImages);
         }
 
@@ -392,7 +392,7 @@ class ActivityController extends Controller
             }
 
             ImageActivityDetail::deleteFileArray($id, $arrayImageActivityDetailId);
-            ImageActivityDetail::whereIn('id',$arrayImageActivityDetailId)->delete();
+            ImageActivityDetail::whereIn('id', $arrayImageActivityDetailId)->delete();
             ImageActivityDetail::insert($newVideos);
         }
 

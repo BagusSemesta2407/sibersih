@@ -29,6 +29,15 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
+                            @if ($activity->status == 'disagree')
+                                <div class="alert alert-danger">
+                                    <p>
+                                        <i class="bi bi-exclamation-triangle"></i> Mohon Maaf Rencana Kegiatan Yang Anda
+                                        Ajukan Belum Disetujui. Mohon Untuk Melakukan Rencana Kegiatan Kembali !
+                                    </p>
+                                    <b>Alasan Penolakan:</b> {{ $activity->disgree_reason }}
+                                </div>
+                            @endif
                             @if (@$activity->exists)
                                 <form class="form form-vertical" enctype="multipart/form-data" method="POST"
                                     action="{{ route('pengguna.activity.update', $activity) }}" id="form">
@@ -103,8 +112,7 @@
                                                 class="form-control @error('date')
                                             is-invalid
                                         @enderror"
-                                                name="date" 
-                                                value="{{ old('date', @$activity->date) }}">
+                                                name="date" value="{{ old('date', @$activity->date) }}">
                                             @if ($errors->has('date'))
                                                 <span class="text-danger">{{ $errors->first('date') }}</span>
                                             @endif
@@ -125,7 +133,8 @@
 
                                         <div class="form-group">
                                             <label for="first-name-vertical">Lokasi Lengkap Kegiatan</label>
-                                            <textarea name="address_details" class="form-control @error('address_details')
+                                            <textarea name="address_details"
+                                                class="form-control @error('address_details')
                                                 is-invalid
                                             @enderror">{{ @$activity->address_details }}</textarea>
                                             @if ($errors->has('address_details'))
@@ -135,11 +144,13 @@
 
                                         <div class="form-group">
                                             <label for="first-name-vertical">Titik Lokasi Yang Perlu Dibersihkan</label>
-                                            <textarea name="describe_point_location" class="form-control @error('describe_point_location')
+                                            <textarea name="describe_point_location"
+                                                class="form-control @error('describe_point_location')
                                                 is-invalid
                                             @enderror">{{ @$activity->describe_point_location }}</textarea>
                                             @if ($errors->has('describe_point_location'))
-                                                <span class="text-danger">{{ $errors->first('describe_point_location') }}</span>
+                                                <span
+                                                    class="text-danger">{{ $errors->first('describe_point_location') }}</span>
                                             @endif
                                         </div>
 
@@ -169,7 +180,7 @@
                                         <div class="input-field">
                                             <label class="active">Poto Lokasi</label>
                                             <div class="input-images-2" style="padding-top: .5rem;">
-                                                
+
                                             </div>
                                             <small>*) Klik kolom yang sudah disediakan untuk menambahkan gambar.</small>
                                         </div>
@@ -197,13 +208,13 @@
     <script type="text/javascript" src="/multiple-image/dist/image-uploader.min.js"></script>
     {{-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> --}}
     <script>
-        let images =@json(@$imageActivity);
-        let imageArray=[];
+        let images = @json(@$imageActivity);
+        let imageArray = [];
 
         for (image in images) {
             imageArray.push({
-                id : image,
-                src : images[image]                
+                id: image,
+                src: images[image]
             })
         }
 
@@ -216,7 +227,7 @@
             preloaded: imageArray // Menggunakan data gambar yang sudah ada
         });
     </script>
-    
+
     <script>
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');

@@ -186,7 +186,7 @@
                             @endforelse
 
                             <div class="px-4">
-                                <a href="{{ route('pengguna.index-list-activity') }}">
+                                <a href="{{ route('pengguna.activity.index') }}">
                                     <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>
                                         Selengkapnya ..</button>
                                 </a>

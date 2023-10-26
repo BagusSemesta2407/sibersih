@@ -41,6 +41,19 @@
                     transform: translateY(0);
                 }
             }
+
+            .card-img-top {
+                width: 100%;
+                height: 20vw;
+                object-fit: cover;
+            }
+
+            @media (max-width: 768px) {
+                .card-img-top {
+                    height: 50vw;
+                    /* Sesuaikan tinggi untuk tampilan mobile */
+                }
+            }
         </style>
     </head>
     <!-- ***** Preloader Start ***** -->
@@ -155,8 +168,8 @@
                                 </div>
                                 <p>SIBERSIH adalah akronim dari Sistem Informasi Kebersihan Kecamatan Subang, sebuah
                                     platform yang menyajikan informasi mengenai aktivitas pemeliharaan kebersihan di
-                                    Kecamatan Subang, bertujuan untuk mewujudkan lingkungan Kecamatan Subang yang bersih dan
-                                    indah.</p>
+                                    Kecamatan Subang, bertujuan untuk meningkatkan kesadaran masyarakat dalam menjaga
+                                    kebersihan dan mewujudkan lingkungan Kecamatan Subang yang bersih dan indah.</p>
                             </div>
                         </div>
                     </div>
@@ -182,9 +195,10 @@
                                 <div class="carousel-inner">
                                     @forelse ($imageSubangActivity as $key => $imgSubang)
                                         <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                                            <img src="{{ $imgSubang->file_url }}" class="d-block w-100" alt="...">
+                                            <img src="{{ $imgSubang->file_url }}" class="d-block w-100 card-img-top"
+                                                alt="...">
                                         </div>
-                                        @empty
+                                    @empty
                                         <div class="carousel-item active">
                                             <img src="/sibersih-logo.png" class="d-block w-100" alt="...">
                                         </div>
@@ -212,18 +226,21 @@
                                 <div class="col-lg-12">
                                     <div class="post-item">
                                         <div class="thumb">
-                                            <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
+                                            <a
+                                                href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                 <img src="{{ $value->imageSubangActivity->first()->file_url }}"
                                                     alt="">
                                             </a>
                                         </div>
                                         <div class="right-content">
-                                            <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
+                                            <a
+                                                href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                 <h4>{{ $value->name }}</h4>
                                             </a>
                                             <p>
                                                 {{ Str::limit($value['description'], 50) }}
-                                                <a href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
+                                                <a
+                                                    href="{{ route('detail-subang-activity', Crypt::encryptString($value->id)) }}">
                                                     Selengkapnya ...
                                                 </a>
                                             </p>
@@ -449,7 +466,8 @@
                                             </a>
                                             <p>
                                                 {{ Str::limit($value['description'], 50) }}
-                                                <a href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
+                                                <a
+                                                    href="{{ route('detail-activity', Crypt::encryptString($value->id)) }}">
                                                     Selengkapnya ...
                                                 </a>
                                             </p>

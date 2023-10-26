@@ -15,6 +15,20 @@
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
         {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/darkly/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+        <style>
+            .card-img-top {
+                width: 100%;
+                height: 20vw;
+                object-fit: cover;
+            }
+
+            @media (max-width: 768px) {
+                .card-img-top {
+                    height: 50vw;
+                    /* Sesuaikan tinggi untuk tampilan mobile */
+                }
+            }
+        </style>
     </head>
     <section id="basic-vertical-layouts">
         <div class="row match-height">
@@ -97,7 +111,8 @@
                                                         <div class="card">
                                                             <a href="{{ $item->image_url }}" data-fancybox="gallery"
                                                                 data-caption="{{ $item->caption }}">
-                                                                <img src="{{ $item->image_url }}" class="card-img-top"
+                                                                <img src="{{ $item->image_url }}"
+                                                                    class="card-img-top img-fluid"
                                                                     alt="{{ $item->caption }}">
                                                             </a>
                                                         </div>
@@ -115,47 +130,47 @@
                             </div>
                             <hr>
                             {{-- @if (@$activityDetail->exists) --}}
-                                {{-- <form class="form form-vertical" enctype="multipart/form-data" method="POST"
+                            {{-- <form class="form form-vertical" enctype="multipart/form-data" method="POST"
                                     action="{{ route('operator.activity-categories.update', $activityCategory) }}"
                                     id="form">
                                     @method('PUT')
                                 @else --}}
-                                    <form class="form form-vertical" enctype="multipart/form-data" method="POST"
-                                        action="{{ route('pengguna.post-upload-activity', $activity) }}" id="form">
-                            {{-- @endif --}}
-                            {{ csrf_field() }}
-                            <h5>Form Upload Bukti Kegiatan</h5>
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label for="first-name-vertical">Kategori Kegiatan</label>
-                                            <div class="col-md-12 mb-3">
-                                                <a class="cam" href="javascript:void(0)">
-                                                    <span class="badge bg-primary">
-                                                        <i class="bi bi-camera"></i>
-                                                    </span>
-                                                </a>
-                                                <a class="vid" href="javascript:void(0)">
-                                                    <span class="badge bg-primary">
-                                                        <i class="bi bi-camera-video"></i>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="gallery">
-                                                    
+                            <form class="form form-vertical" enctype="multipart/form-data" method="POST"
+                                action="{{ route('pengguna.post-upload-activity', $activity) }}" id="form">
+                                {{-- @endif --}}
+                                {{ csrf_field() }}
+                                <h5>Form Upload Bukti Kegiatan</h5>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Kategori Kegiatan</label>
+                                                <div class="col-md-12 mb-3">
+                                                    <a class="cam" href="javascript:void(0)">
+                                                        <span class="badge bg-primary">
+                                                            <i class="bi bi-camera"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a class="vid" href="javascript:void(0)">
+                                                        <span class="badge bg-primary">
+                                                            <i class="bi bi-camera-video"></i>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="gallery">
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="first-name-vertical">Deskripsi</label>
-                                        <textarea name="description" id="description" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="first-name-vertical">Deskripsi</label>
+                                            <textarea name="description" id="description" class="form-control"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -165,7 +180,8 @@
             <button type="submit" class="btn btn-outline-primary me-1 mb-1" id="btnSubmit">
                 {{-- {{ $aksi }} --}}
                 Upload
-                <span class="spinner-border ml-2 d-none" id="loader" style="width: 1rem; height: 1rem;" role="status">
+                <span class="spinner-border ml-2 d-none" id="loader" style="width: 1rem; height: 1rem;"
+                    role="status">
                 </span>
             </button>
         </div>
